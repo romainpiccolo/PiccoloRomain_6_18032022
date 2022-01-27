@@ -7,7 +7,7 @@ function photographerFactory(data) {
 		const article = document.createElement('article');
 
 		const a = document.createElement('a');
-		a.href = `photograpers/${data.id}`;
+		a.href = `photographer-page/${data.id}`;
 		a.setAttribute('alt', data.name);
 
 		const img = document.createElement('img');
@@ -44,10 +44,9 @@ function photographerFactory(data) {
 		article.appendChild(a);
 		article.appendChild(p);
 
-		// p.textContent = `${data.city}, ${data.country}`;
-
 		return article;
 	}
+
 	return { name, picture, getUserCardDOM };
 }
 
