@@ -9,9 +9,30 @@ async function getPhotographerDatas(id) {
 			return response.json();
 		})
 		.then((res) => {
-            return res.photographers.find((photographer) => (photographer.id === id))
-        })
+			return res.photographers.find(
+				(photographer) => photographer.id === id
+			);
+		})
 		.catch((error) => console.log(error));
+}
+
+function generatePhotographerHeader(photographerModel) {
+	const photographInfoSection = document.querySelector('.photograph-infos');
+	const photographPhotoSection = document.querySelector('.photograph-photo');
+
+	const photographInfo = photographerModel.getPhotographInfoDOM();
+	const photographAvatar = photographerModel.getPhotographAvatarDOM();
+
+	photographInfoSection.appendChild(photographInfo);
+	photographPhotoSection.appendChild(photographAvatar);
+}
+
+function generatePhotographerPriceSection(photographerModel) {
+    const photographStatSection = document.querySelector('.photograph-stats');
+
+	const photographStats = photographerModel.getPhotographStatsDOM();
+
+	photographStatSection.appendChild(photographStats);
 }
 
 //Auto execute function to get photographer datas
@@ -21,12 +42,8 @@ async function getPhotographerDatas(id) {
 	const photographer = await getPhotographerDatas(id);
 	const photographerModel = photographerFactory(photographer);
 
-    const photographInfoSection = document.querySelector('.photograph-infos');
-    const photographPhotoSection = document.querySelector('.photograph-photo');
+	generatePhotographerHeader(photographerModel);
+	generatePhotographerPriceSection(photographerModel);
 
-    const photographInfo = photographerModel.getPhotographInfoDOM();
-    const photographAvatar = photographerModel.getPhotographAvatarDOM();
-
-    photographInfoSection.appendChild(photographInfo);
-    photographPhotoSection.appendChild(photographAvatar);
+	console.log(photographer);
 })();

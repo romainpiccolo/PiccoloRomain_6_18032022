@@ -63,6 +63,28 @@
     cursor: pointer;
 }
 
+.photograph-main {
+    /* height: 70vh; */
+}
+
+.photograph-stats {
+    position: fixed;
+    bottom: 0;
+    right: 2%;
+    background-color: var(--color-tertiary);
+    border-radius: 5px 5px 0 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 250px;
+    padding: 10px;
+}
+
+.photograph-stats p {
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+}
+
 .modal {
     border-radius: 5px;
     background-color: var(--color-tertiary);

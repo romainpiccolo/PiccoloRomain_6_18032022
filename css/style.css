@@ -35,3 +35,7 @@ a {
     border-radius: 50%;
     object-fit: cover;
 }
+
+.heart-icon {
+    height: 1rem;
+}

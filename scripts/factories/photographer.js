@@ -58,7 +58,26 @@ function photographerFactory(data) {
 		return p;
 	}
 
-	return { getUserCardDOM, getPhotographInfoDOM, getPhotographAvatarDOM };
+    function getPhotographStatsDOM() {
+		const p = document.createElement('p');
+
+        const spanLikes = document.createElement('span');
+        spanLikes.textContent = '297081 ';
+        const icon = document.createElement('img');
+        icon.setAttribute('src', 'assets/icons/heart.svg');
+        icon.classList.add('heart-icon');
+        spanLikes.append(icon);
+
+        const spanPrice = document.createElement('span');
+        spanPrice.textContent = `${price}€/jour`;
+
+        p.appendChild(spanLikes);
+        p.appendChild(spanPrice);
+
+        return p;
+    }
+
+	return { getUserCardDOM, getPhotographInfoDOM, getPhotographAvatarDOM, getPhotographStatsDOM };
 }
 
 export { photographerFactory };
