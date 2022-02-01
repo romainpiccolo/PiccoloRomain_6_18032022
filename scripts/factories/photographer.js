@@ -1,43 +1,42 @@
 function photographerFactory(data) {
-	const { name, portrait } = data;
+	const { id, name, city, country, portrait, price, tagline } = data;
 
 	const picture = `assets/photographers/${portrait}`;
+	const localisation = `${city}, ${country}`;
+
+    function _createParagraphWithSpans(spansContent) {
+		const p = document.createElement('p');
+
+        spansContent.forEach((content) => {
+			let span = document.createElement('span');
+			span.textContent = content;
+			p.appendChild(span);
+		});
+
+        return p;
+    }
+
+    function getPhotographAvatarDOM(){
+        const img = document.createElement('img');
+		img.setAttribute('src', picture);
+        img.classList.add('avatar-photo');
+
+        return img;
+    }
 
 	function getUserCardDOM() {
 		const article = document.createElement('article');
 
 		const a = document.createElement('a');
-		a.href = `photographer-page/${data.id}`;
-		a.setAttribute('alt', data.name);
+		a.href = `/photographer-page.html?id=${id}`;
+		a.setAttribute('alt', name);
 
-		const img = document.createElement('img');
-		img.setAttribute('src', picture);
+		const img = getPhotographAvatarDOM();
 
 		const h2 = document.createElement('h2');
 		h2.textContent = name;
 
-		const p = document.createElement('p');
-
-		const spans = [
-			{
-				span: 'citySpan',
-				textContent: `${data.city}, ${data.country}`,
-			},
-			{
-				span: 'tagSpan',
-				textContent: `${data.tagline}`,
-			},
-			{
-				span: 'priceSpan',
-				textContent: `${data.price}€/jour`,
-			},
-		];
-
-		spans.forEach(el => {
-			let span = document.createElement('span');
-			span.textContent = el.textContent;
-			p.appendChild(span);
-		});
+		const p = _createParagraphWithSpans([localisation, `${tagline}`, `${price}€/jour`])
 
 		a.appendChild(img);
 		a.appendChild(h2);
@@ -47,7 +46,21 @@ function photographerFactory(data) {
 		return article;
 	}
 
-	return { name, picture, getUserCardDOM };
+	function getPhotographInfoDOM() {
+		const article = document.createElement('article');
+
+		const h2 = document.createElement('h2');
+		h2.textContent = name;
+
+		const p = _createParagraphWithSpans([localisation, `${tagline}`])
+
+        article.appendChild(h2);
+		article.appendChild(p);
+
+		return article;
+	}
+
+	return { getUserCardDOM, getPhotographInfoDOM, getPhotographAvatarDOM };
 }
 
 export { photographerFactory };
