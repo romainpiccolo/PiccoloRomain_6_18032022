@@ -29,12 +29,4 @@ async function getPhotographerDatas(id) {
 
     photographInfoSection.appendChild(photographInfo);
     photographPhotoSection.appendChild(photographAvatar);
-    
-
-    
-
-    console.log(photographer);
-    // console.log(photographerModel.picture);
-
-
 })();

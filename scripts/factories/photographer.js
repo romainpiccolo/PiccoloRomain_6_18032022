@@ -47,17 +47,13 @@ function photographerFactory(data) {
 	}
 
 	function getPhotographInfoDOM() {
-		const article = document.createElement('article');
-
 		const h2 = document.createElement('h2');
 		h2.textContent = name;
 
 		const p = _createParagraphWithSpans([localisation, `${tagline}`])
+        p.prepend(h2);
 
-        article.appendChild(h2);
-		article.appendChild(p);
-
-		return article;
+		return p;
 	}
 
 	return { getUserCardDOM, getPhotographInfoDOM, getPhotographAvatarDOM };
