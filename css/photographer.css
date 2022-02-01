@@ -11,12 +11,30 @@
     margin: 0 100px;
 }
 
+.photograph-infos {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.photograph-photo {
+    width: 30%;
+    justify-content: center;
+    display: flex;
+}
+
+.photograph-contact {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
 .photograph-infos p {
     display: flex;
     flex-direction: column;
 }
 
-.photograph-infos h2 {
+.photograph-infos h1 {
     color: var(--color-secondary);
     font-size: 4rem;
     margin: 0;

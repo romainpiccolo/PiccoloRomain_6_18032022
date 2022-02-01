@@ -19,6 +19,8 @@ function photographerFactory(data) {
     function getPhotographAvatarDOM(){
         const img = document.createElement('img');
 		img.setAttribute('src', picture);
+		img.setAttribute('alt', name);
+
         img.classList.add('avatar-photo');
 
         return img;
@@ -47,11 +49,11 @@ function photographerFactory(data) {
 	}
 
 	function getPhotographInfoDOM() {
-		const h2 = document.createElement('h2');
-		h2.textContent = name;
+		const h1 = document.createElement('h1');
+		h1.textContent = name;
 
 		const p = _createParagraphWithSpans([localisation, `${tagline}`])
-        p.prepend(h2);
+        p.prepend(h1);
 
 		return p;
 	}
