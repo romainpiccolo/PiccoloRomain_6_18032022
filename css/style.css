@@ -24,6 +24,12 @@ a {
 	text-decoration: none;
 }
 
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
 .logo {
 	height: 50px;
 	margin-left: 100px;
@@ -38,4 +44,8 @@ a {
 
 .heart-icon {
     height: 1rem;
+}
+
+.display-none {
+    display: none;
 }

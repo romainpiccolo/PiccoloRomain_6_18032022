@@ -28,7 +28,7 @@ function generatePhotographerHeader(photographerModel) {
 }
 
 function generatePhotographerPriceSection(photographerModel) {
-    const photographStatSection = document.querySelector('.photograph-stats');
+	const photographStatSection = document.querySelector('.photograph-stats');
 
 	const photographStats = photographerModel.getPhotographStatsDOM();
 
