@@ -10,12 +10,5 @@ function hideFilters() {
     filtersList.style.display = 'none';
 }
 
-function sortContent(e) {
-    const filterValue = e.target.attributes.value.value;
-    const selectButton = document.querySelector('.select-button');
 
-    hideFilters();
-    selectButton.textContent = e.target.textContent;
-
-    console.log(filterValue);
-}
+export { showFilters, hideFilters };
