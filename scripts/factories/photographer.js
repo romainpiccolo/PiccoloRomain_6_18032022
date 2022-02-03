@@ -115,6 +115,11 @@ function photographerFactory(data) {
 
             content.src = srcContent;
             content.alt = media.title;
+            p.lastChild.dataset.id = media.id;
+            p.lastChild.addEventListener('click', (e) => {
+                const currentLike = parseInt(e.target.textContent);
+                e.target.textContent = currentLike + 1;
+            });
 
             a.appendChild(content);
             a.appendChild(p);
