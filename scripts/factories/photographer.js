@@ -96,8 +96,6 @@ function photographerFactory(data) {
             totalLikes += parseInt(span.textContent);
         })
 
-        console.log(totalLikes);
-
         document.querySelector('.photograph-stats span').textContent = totalLikes;
     }
 
