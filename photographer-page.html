@@ -39,19 +39,20 @@
 				<label for="filters">Trier par</label>
 
                 <div class="select-wrapper">
-                    <button id="selectButton" class="select-button">Popularité</button>
+                    <button id="selectButton" value="popularity" class="select-button">Popularité</button>
                     <ul class="filters-list" >
-                        <li onclick="sortContent(event)" value="popularity">Popularité</li>
+                        <li onclick="changeButtonValue(event)" value="popularity">Popularité</li>
                         <li class="white-line"></li>
-                        <li onclick="sortContent(event)" value="date">Date</li>
+                        <li onclick="changeButtonValue(event)" value="date">Date</li>
                         <li class="white-line"></li>
-                        <li onclick="sortContent(event)" value="title">Titre</li>
+                        <li onclick="changeButtonValue(event)" value="title">Titre</li>
                     </ul>
                 </div>
 
 			</div>
 
 			<div class="photograph-stats"></div>
+            <div class="photograph-gallery"></div>
 		</main>
 		<div id="contact_modal">
 			<div class="modal">

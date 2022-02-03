@@ -18,33 +18,41 @@ async function getPhotographerDatas(id) {
 		.catch((error) => console.log(error));
 }
 
-async function getPhotographerMedias(id) {
-	return await fetch('../data/photographers.json')
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error('Error HTTP');
-			}
-			return response.json();
-		})
-		.then((res) => {
-			return res.media.filter((a) => a.photographerId === id);
-		})
-		.catch((error) => console.log(error));
+// async function getPhotographerMedias(id) {
+// 	return await fetch('../data/photographers.json')
+// 		.then((response) => {
+// 			if (!response.ok) {
+// 				throw new Error('Error HTTP');
+// 			}
+// 			return response.json();
+// 		})
+// 		.then((res) => {
+// 			return res.media.filter((media) => media.photographerId === id);
+// 		})
+// 		.catch((error) => console.log(error));
+// }
+
+function changeButtonValue(e) {
+    const selectButton = document.querySelector('.select-button');
+
+    selectButton.textContent = e.target.textContent;
+    selectButton.value = e.target.attributes.value.value;
+
+    sortContent();
 }
 
-async function sortContent(e) {
+async function sortContent() {
 	const photographId = parseInt(
 		new URL(document.location).searchParams.get('id')
 	);
-	const filterValue = e.target.attributes.value.value || null;
+    const photographerModel = photographerFactory({id: photographId});
 	const selectButton = document.querySelector('.select-button');
 
 	Filters.hideFilters();
-	selectButton.textContent = e.target.textContent;
 
-	let medias = await getPhotographerMedias(photographId);
+	let medias = await photographerModel.getPhotographerMedias();
 
-	switch (filterValue) {
+	switch (selectButton.value) {
 		case 'popularity':
 			medias =  medias.sort((a, b) => a.likes - b.likes);
 			break;
@@ -61,6 +69,15 @@ async function sortContent(e) {
 			medias =  medias.sort((a, b) => a.likes - b.likes);
 			break;
 	}
+
+    let wrapperDiv = document.querySelector('.gallery-wrapper');
+    if (wrapperDiv) {
+        wrapperDiv.remove();
+    }
+    wrapperDiv = photographerModel.getPhotographGalleryDOM(medias);
+
+    const gallery = document.querySelector('.photograph-gallery');
+    gallery.appendChild(wrapperDiv);
 
     generatePhotographContent(medias);
 }
@@ -92,7 +109,7 @@ function _loadEventListener() {
 	document
 		.querySelector('#selectButton')
 		.addEventListener('click', Filters.showFilters);
-	window.sortContent = sortContent;
+    window.changeButtonValue = changeButtonValue;
 	window.displayModal = ContactForm.displayModal;
 	window.closeModal = ContactForm.closeModal;
 }
@@ -104,10 +121,11 @@ function _loadEventListener() {
 	const photographer = await getPhotographerDatas(id);
 	const photographerModel = photographerFactory(photographer);
 
+    sessionStorage.setItem('currentPhotographerId', id);
+
 	_loadEventListener();
 
 	generatePhotographerHeader(photographerModel);
 	generatePhotographerPriceSection(photographerModel);
-
-	console.log(photographer);
+    sortContent();
 })();

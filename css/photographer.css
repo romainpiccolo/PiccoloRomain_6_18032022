@@ -158,6 +158,40 @@
     margin: 0;
 }
 
+.photograph-gallery {
+    margin: 30px 100px;
+}
+
+
+.gallery-wrapper {
+    display: grid;
+    justify-content: center;
+    gap: 6rem;
+    grid-template-columns: repeat(auto-fill, 350px);
+}
+
+.gallery-img {
+    width: 350px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.gallery-img-infos {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-primary);
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.gallery-img-infos span:last-child::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f004";
+    margin-left: 5px;
+}
+
 .modal {
     border-radius: 5px;
     background-color: var(--color-tertiary);
