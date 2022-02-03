@@ -70,6 +70,10 @@ async function sortContent() {
 			break;
 	}
 
+    generatePhotographGallery(photographerModel, medias);
+}
+
+function generatePhotographGallery(photographerModel, medias) {
     let wrapperDiv = document.querySelector('.gallery-wrapper');
     if (wrapperDiv) {
         wrapperDiv.remove();
@@ -78,12 +82,6 @@ async function sortContent() {
 
     const gallery = document.querySelector('.photograph-gallery');
     gallery.appendChild(wrapperDiv);
-
-    generatePhotographContent(medias);
-}
-
-function generatePhotographContent(medias) {
-    console.log('generate content', medias);
 }
 
 function generatePhotographerHeader(photographerModel) {
