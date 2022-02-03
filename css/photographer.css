@@ -164,6 +164,14 @@
     margin: 0;
 }
 
+.photograph-stats p span:first-child::after{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f004";
+    margin-left: 5px;
+    font-size: 1.1rem;
+}
+
 .photograph-gallery {
     margin: 30px 100px;
 }
@@ -173,7 +181,6 @@
     display: grid;
     justify-content: center;
     gap: 3rem 5rem;
-   
     grid-template-columns: repeat(auto-fill, 350px);
 }
 

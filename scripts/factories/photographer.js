@@ -78,15 +78,9 @@ function photographerFactory(data) {
 
 	function getPhotographStatsDOM() {
 		const p = document.createElement('p');
-
 		const spanLikes = document.createElement('span');
-		spanLikes.textContent = '297081 ';
-		const icon = document.createElement('img');
-		icon.setAttribute('src', 'assets/icons/heart.svg');
-		icon.classList.add('heart-icon');
-		spanLikes.append(icon);
-
 		const spanPrice = document.createElement('span');
+
 		spanPrice.textContent = `${price}€/jour`;
 
 		p.appendChild(spanLikes);
@@ -94,6 +88,18 @@ function photographerFactory(data) {
 
 		return p;
 	}
+
+    function refreshPhotograhStatsLikesDOM() {
+        const spansLikes = document.querySelectorAll('.gallery-wrapper span:last-child')
+        let totalLikes = 0;
+        spansLikes.forEach(span => {
+            totalLikes += parseInt(span.textContent);
+        })
+
+        console.log(totalLikes);
+
+        document.querySelector('.photograph-stats span').textContent = totalLikes;
+    }
 
 	function getPhotographGalleryDOM(medias) {
         const wrapperDiv = document.createElement('div');
@@ -119,6 +125,7 @@ function photographerFactory(data) {
             p.lastChild.addEventListener('click', (e) => {
                 const currentLike = parseInt(e.target.textContent);
                 e.target.textContent = currentLike + 1;
+                refreshPhotograhStatsLikesDOM();
             });
 
             a.appendChild(content);
@@ -136,6 +143,7 @@ function photographerFactory(data) {
 		getPhotographStatsDOM,
 		getPhotographerMedias,
 		getPhotographGalleryDOM,
+        refreshPhotograhStatsLikesDOM
 	};
 }
 

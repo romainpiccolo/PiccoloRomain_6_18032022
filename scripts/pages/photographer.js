@@ -18,20 +18,6 @@ async function getPhotographerDatas(id) {
 		.catch((error) => console.log(error));
 }
 
-// async function getPhotographerMedias(id) {
-// 	return await fetch('../data/photographers.json')
-// 		.then((response) => {
-// 			if (!response.ok) {
-// 				throw new Error('Error HTTP');
-// 			}
-// 			return response.json();
-// 		})
-// 		.then((res) => {
-// 			return res.media.filter((media) => media.photographerId === id);
-// 		})
-// 		.catch((error) => console.log(error));
-// }
-
 function changeButtonValue(e) {
     const selectButton = document.querySelector('.select-button');
 
@@ -95,7 +81,7 @@ function generatePhotographerHeader(photographerModel) {
 	photographPhotoSection.appendChild(photographAvatar);
 }
 
-function generatePhotographerPriceSection(photographerModel) {
+function generatePhotographerStatSection(photographerModel) {
 	const photographStatSection = document.querySelector('.photograph-stats');
 
 	const photographStats = photographerModel.getPhotographStatsDOM();
@@ -124,6 +110,7 @@ function _loadEventListener() {
 	_loadEventListener();
 
 	generatePhotographerHeader(photographerModel);
-	generatePhotographerPriceSection(photographerModel);
-    sortContent();
+	generatePhotographerStatSection(photographerModel);
+    await sortContent();
+    photographerModel.refreshPhotograhStatsLikesDOM();
 })();
