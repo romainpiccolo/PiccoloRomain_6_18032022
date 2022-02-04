@@ -8,7 +8,7 @@
 			rel="stylesheet"
 		/>
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
-        <script
+		<script
 			src="https://kit.fontawesome.com/21ff9197a0.js"
 			crossorigin="anonymous"
 		></script>
@@ -28,7 +28,7 @@
 			<div class="photograph-header">
 				<div class="photograph-infos"></div>
 				<div class="photograph-contact">
-					<button class="contact_button" onclick="displayModal()">
+					<button class="contact_button">
 						Contactez-moi
 					</button>
 				</div>
@@ -38,27 +38,48 @@
 			<div class="photograph-main">
 				<label for="filters">Trier par</label>
 
-                <div class="select-wrapper">
-                    <button id="selectButton" value="popularity" class="select-button">Popularité</button>
-                    <ul class="filters-list" >
-                        <li onclick="changeButtonValue(event)" value="popularity">Popularité</li>
-                        <li class="white-line"></li>
-                        <li onclick="changeButtonValue(event)" value="date">Date</li>
-                        <li class="white-line"></li>
-                        <li onclick="changeButtonValue(event)" value="title">Titre</li>
-                    </ul>
-                </div>
-
+				<div class="select-wrapper">
+					<button
+						id="selectButton"
+						value="popularity"
+						class="select-button"
+					>
+						Popularité
+					</button>
+					<ul class="filters-list">
+						<li class="filter-item" value="popularity">
+							Popularité
+						</li>
+						<li class="white-line"></li>
+						<li class="filter-item" value="date">Date</li>
+						<li class="white-line"></li>
+						<li class="filter-item" value="title">Titre</li>
+					</ul>
+				</div>
 			</div>
 
 			<div class="photograph-stats"></div>
-            <div class="photograph-gallery"></div>
+			<div class="photograph-gallery"></div>
 		</main>
+		<div id="lightbox">
+			<a>
+				<i class="fas fa-angle-left"></i>
+			</a>
+			<div class="dialog-content">
+				<img class="dialog-img-content" src="" alt="" />
+				<video src="" class="dialog-video-content">
+					<source src="" type="video/mp4" />
+				</video>
+			</div>
+			<a>
+				<i class="fas fa-angle-right"></i>
+			</a>
+		</div>
 		<div id="contact_modal">
 			<div class="modal">
 				<header>
 					<h2>Contactez-moi</h2>
-					<img src="assets/icons/close.svg" onclick="closeModal()" />
+					<img class="close-modal" src="assets/icons/close.svg" />
 				</header>
 				<form>
 					<div>

@@ -1,0 +1,46 @@
+#lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    display: none;
+    justify-content: center;
+}
+
+.fa-times{
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--color-primary);
+}
+
+.fa-angle-right, .fa-angle-left {
+    cursor: pointer;
+    font-size: 3rem;
+    color: var(--color-primary);
+}
+
+.dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: inherit;
+    height: inherit;
+}
+
+.dialog-img-content, .dialog-video-content {
+    height: 85%;
+    width: 70%;
+    object-fit: cover;
+    display: none;
+}
+.dialog-content {
+    height: 85%;
+    width: 70%;
+    object-fit: cover;
+}

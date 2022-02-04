@@ -1,4 +1,5 @@
 import { photographerFactory } from '../factories/photographer.js';
+import { eventHandler } from '../class/eventHandler.js';
 import * as Filters from '../utils/filters.js';
 import * as ContactForm from '../utils/contactForm.js';
 
@@ -18,56 +19,30 @@ async function getPhotographerDatas(id) {
 		.catch((error) => console.log(error));
 }
 
-function changeButtonValue(e) {
-    const selectButton = document.querySelector('.select-button');
-
-    selectButton.textContent = e.target.textContent;
-    selectButton.value = e.target.attributes.value.value;
-
-    sortContent();
-}
-
 async function sortContent() {
 	const photographId = parseInt(
 		new URL(document.location).searchParams.get('id')
 	);
-    const photographerModel = photographerFactory({id: photographId});
-	const selectButton = document.querySelector('.select-button');
+	const photographerModel = photographerFactory({ id: photographId });
+	const sortType = document.querySelector('.select-button').value;
 
 	Filters.hideFilters();
 
-	let medias = await photographerModel.getPhotographerMedias();
-
-	switch (selectButton.value) {
-		case 'popularity':
-			medias =  medias.sort((a, b) => a.likes - b.likes);
-			break;
-
-        case 'date':
-			medias =  medias.sort((a, b) => a.date < b.date);
-			break;
-
-        case 'title':
-			medias =  medias.sort((a, b) => a.title > b.title);
-            break;
-
-		default:
-			medias =  medias.sort((a, b) => a.likes - b.likes);
-			break;
-	}
-
-    generatePhotographGallery(photographerModel, medias);
+	let medias = await photographerModel.getPhotographerMedias(sortType);
+	generatePhotographGallery(photographerModel, medias);
 }
 
 function generatePhotographGallery(photographerModel, medias) {
-    let wrapperDiv = document.querySelector('.gallery-wrapper');
-    if (wrapperDiv) {
-        wrapperDiv.remove();
-    }
-    wrapperDiv = photographerModel.getPhotographGalleryDOM(medias);
+	let wrapperDiv = document.querySelector('.gallery-wrapper');
+	if (wrapperDiv) {
+		wrapperDiv.remove();
+	}
+	wrapperDiv = photographerModel.getPhotographGalleryDOM(medias, {
+		addLike: eventHandler.addLike,
+	});
 
-    const gallery = document.querySelector('.photograph-gallery');
-    gallery.appendChild(wrapperDiv);
+	const gallery = document.querySelector('.photograph-gallery');
+	gallery.appendChild(wrapperDiv);
 }
 
 function generatePhotographerHeader(photographerModel) {
@@ -89,13 +64,23 @@ function generatePhotographerStatSection(photographerModel) {
 	photographStatSection.appendChild(photographStats);
 }
 
+
 function _loadEventListener() {
 	document
 		.querySelector('#selectButton')
 		.addEventListener('click', Filters.showFilters);
-    window.changeButtonValue = changeButtonValue;
-	window.displayModal = ContactForm.displayModal;
-	window.closeModal = ContactForm.closeModal;
+	document
+		.querySelector('.contact_button')
+		.addEventListener('click', ContactForm.displayModal);
+	document
+		.querySelector('.close-modal')
+		.addEventListener('click', ContactForm.closeModal);
+	document
+		.querySelectorAll('.filter-item')
+		.forEach((item) => item.addEventListener('click', (e) => {
+            eventHandler.changeButtonValue(e);
+            sortContent();
+        }));
 }
 
 //Auto execute function to get photographer datas
@@ -105,12 +90,12 @@ function _loadEventListener() {
 	const photographer = await getPhotographerDatas(id);
 	const photographerModel = photographerFactory(photographer);
 
-    sessionStorage.setItem('currentPhotographerId', id);
+	sessionStorage.setItem('currentPhotographerId', id);
 
 	_loadEventListener();
 
 	generatePhotographerHeader(photographerModel);
 	generatePhotographerStatSection(photographerModel);
-    await sortContent();
-    photographerModel.refreshPhotograhStatsLikesDOM();
+	await sortContent();
+	eventHandler.refreshPhotograhStatsLikesDOM();
 })();
