@@ -37,9 +37,7 @@ function generatePhotographGallery(photographerModel, medias) {
 	if (wrapperDiv) {
 		wrapperDiv.remove();
 	}
-	wrapperDiv = photographerModel.getPhotographGalleryDOM(medias, {
-		addLike: eventHandler.addLike,
-	});
+	wrapperDiv = photographerModel.getPhotographGalleryDOM(medias, eventHandler);
 
 	const gallery = document.querySelector('.photograph-gallery');
 	gallery.appendChild(wrapperDiv);
@@ -64,7 +62,6 @@ function generatePhotographerStatSection(photographerModel) {
 	photographStatSection.appendChild(photographStats);
 }
 
-
 function _loadEventListener() {
 	document
 		.querySelector('#selectButton')
@@ -75,12 +72,12 @@ function _loadEventListener() {
 	document
 		.querySelector('.close-modal')
 		.addEventListener('click', ContactForm.closeModal);
-	document
-		.querySelectorAll('.filter-item')
-		.forEach((item) => item.addEventListener('click', (e) => {
-            eventHandler.changeButtonValue(e);
-            sortContent();
-        }));
+	document.querySelectorAll('.filter-item').forEach((item) =>
+		item.addEventListener('click', (e) => {
+			eventHandler.changeButtonValue(e);
+			sortContent();
+		})
+	);
 }
 
 //Auto execute function to get photographer datas
@@ -97,5 +94,5 @@ function _loadEventListener() {
 	generatePhotographerHeader(photographerModel);
 	generatePhotographerStatSection(photographerModel);
 	await sortContent();
-	eventHandler.refreshPhotograhStatsLikesDOM();
+	eventHandler.refreshPhotograhStats();
 })();
