@@ -1,3 +1,5 @@
+import { Lightbox } from './lightbox.js';
+
 class eventHandler {
 	static addLike(event) {
 		const currentLike = parseInt(event.target.textContent);
@@ -25,20 +27,25 @@ class eventHandler {
 		selectButton.value = event.target.getAttribute('value');
 	}
 
-	static loadInLightbox(event) {
-		const src = event.target.getAttribute('src');
-		const alt = event.target.getAttribute('alt');
-		const lightbox = document.querySelector('#lightbox');
+	static loadInLightbox(medias, currentId) {
 
-		if (event.target.tagName === 'VIDEO') {
-			console.log('video');
-		} else {
-			document.querySelector('.dialog-img-content').src = src;
-			document.querySelector('.dialog-img-content').alt = alt;
-			document.querySelector('.dialog-img-content').style.display =
-				'block';
-		}
-		lightbox.style.display = 'flex';
+        const lightbox = new Lightbox('#lightbox', medias, currentId);
+
+        lightbox.debugMediasList();
+
+		// const src = event.target.getAttribute('src');
+		// const alt = event.target.getAttribute('alt');
+		// const lightbox = document.querySelector('#lightbox');
+
+		// if (event.target.tagName === 'VIDEO') {
+		// 	console.log('video');
+		// } else {
+		// 	document.querySelector('.dialog-img-content').src = src;
+		// 	document.querySelector('.dialog-img-content').alt = alt;
+		// 	document.querySelector('.dialog-img-content').style.display =
+		// 		'block';
+		// }
+		// lightbox.style.display = 'flex';
 	}
 }
 

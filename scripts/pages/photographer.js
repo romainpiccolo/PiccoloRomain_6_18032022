@@ -1,23 +1,9 @@
 import { photographerFactory } from '../factories/photographer.js';
 import { eventHandler } from '../class/eventHandler.js';
+import { sortMediaByType } from '../utils/helpers.js';
+import { fetchPhotographerDatas } from '../utils/fetchDatas.js';
 import * as Filters from '../utils/filters.js';
 import * as ContactForm from '../utils/contactForm.js';
-
-async function getPhotographerDatas(id) {
-	return await fetch('../data/photographers.json')
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error('Error HTTP');
-			}
-			return response.json();
-		})
-		.then((res) => {
-			return res.photographers.find(
-				(photographer) => photographer.id === id
-			);
-		})
-		.catch((error) => console.log(error));
-}
 
 async function sortContent() {
 	const photographId = parseInt(
@@ -28,8 +14,11 @@ async function sortContent() {
 
 	Filters.hideFilters();
 
-	let medias = await photographerModel.getPhotographerMedias(sortType);
-	generatePhotographGallery(photographerModel, medias);
+	let medias = await photographerModel.getPhotographerMedias();
+	generatePhotographGallery(
+		photographerModel,
+		sortMediaByType(medias, sortType)
+	);
 }
 
 function generatePhotographGallery(photographerModel, medias) {
@@ -37,7 +26,10 @@ function generatePhotographGallery(photographerModel, medias) {
 	if (wrapperDiv) {
 		wrapperDiv.remove();
 	}
-	wrapperDiv = photographerModel.getPhotographGalleryDOM(medias, eventHandler);
+	wrapperDiv = photographerModel.getPhotographGalleryDOM(
+		medias,
+		eventHandler
+	);
 
 	const gallery = document.querySelector('.photograph-gallery');
 	gallery.appendChild(wrapperDiv);
@@ -84,7 +76,7 @@ function _loadEventListener() {
 (async () => {
 	const id = parseInt(new URL(document.location).searchParams.get('id'));
 
-	const photographer = await getPhotographerDatas(id);
+	const photographer = await fetchPhotographerDatas(id);
 	const photographerModel = photographerFactory(photographer);
 
 	sessionStorage.setItem('currentPhotographerId', id);

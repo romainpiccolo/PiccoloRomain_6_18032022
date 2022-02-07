@@ -1,4 +1,5 @@
 import { createCustomDOM, createParagraphWithSpans } from '../utils/helpers.js';
+import { fetchPhotographerMedias } from '../utils/fetchDatas.js';
 
 function photographerFactory(data) {
 	const { id, name, city, country, portrait, price, tagline } = data;
@@ -6,38 +7,8 @@ function photographerFactory(data) {
 	const picture = `assets/photographers/avatar/${portrait}`;
 	const localisation = `${city}, ${country}`;
 
-	async function getPhotographerMedias(sortType) {
-		let medias = await fetch('../data/photographers.json')
-			.then((response) => {
-				if (!response.ok) {
-					throw new Error('Error HTTP');
-				}
-				return response.json();
-			})
-			.then((res) => {
-				return res.media.filter((media) => media.photographerId === id);
-			})
-			.catch((error) => console.log(error));
-
-		switch (sortType) {
-			case 'popularity':
-				medias = medias.sort((a, b) => a.likes - b.likes);
-				break;
-
-			case 'date':
-				medias = medias.sort((a, b) => a.date < b.date);
-				break;
-
-			case 'title':
-				medias = medias.sort((a, b) => a.title > b.title);
-				break;
-
-			default:
-				medias = medias.sort((a, b) => a.likes - b.likes);
-				break;
-		}
-
-		return medias;
+	async function getPhotographerMedias() {
+		return fetchPhotographerMedias(id);
 	}
 
 	function getPhotographAvatarDOM() {
@@ -107,9 +78,9 @@ function photographerFactory(data) {
 
 			const content = createCustomDOM(
 				mediaIsVideo ? 'video' : 'img',
-				{ src: srcContent, alt: media.title },
+				{ src: srcContent, alt: media.title, id: media.id },
 				['gallery-img'],
-				eventHandler.loadInLightbox
+				() => eventHandler.loadInLightbox(medias, media.id)
 			);
 
 			p.lastChild.dataset.id = media.id;
