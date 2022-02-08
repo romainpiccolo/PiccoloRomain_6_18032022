@@ -29,9 +29,9 @@ class eventHandler {
 
 	static loadInLightbox(medias, currentId) {
 
-        const lightbox = new Lightbox('#lightbox', medias, currentId);
+        const lightbox = new Lightbox(medias, currentId);
 
-        lightbox.debugMediasList();
+        lightbox.init();
 
 		// const src = event.target.getAttribute('src');
 		// const alt = event.target.getAttribute('alt');

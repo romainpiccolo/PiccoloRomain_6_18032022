@@ -1,4 +1,4 @@
-import { createCustomDOM, createParagraphWithSpans } from '../utils/helpers.js';
+import { createCustomDOM, createParagraphWithSpans, mediaIsAVideo } from '../utils/helpers.js';
 import { fetchPhotographerMedias } from '../utils/fetchDatas.js';
 
 function photographerFactory(data) {
@@ -63,10 +63,7 @@ function photographerFactory(data) {
 
 		medias.forEach((media) => {
 			let a = document.createElement('a');
-			let mediaIsVideo = Object.prototype.hasOwnProperty.call(
-				media,
-				'video'
-			);
+			let mediaIsVideo = mediaIsAVideo(media);
 			let p = createParagraphWithSpans(
 				[media.title, media.likes],
 				['gallery-img-infos']

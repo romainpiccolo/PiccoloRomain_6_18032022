@@ -28,27 +28,31 @@ function createParagraphWithSpans(spansContent, classList = []) {
 }
 
 function sortMediaByType(medias, type) {
-    let sortedMedias = null;
+	let sortedMedias = null;
 
-    switch (type) {
-        case 'popularity':
-            sortedMedias = medias.sort((a, b) => a.likes - b.likes);
-            break;
+	switch (type) {
+		case 'popularity':
+			sortedMedias = medias.sort((a, b) => a.likes - b.likes);
+			break;
 
-        case 'date':
-            sortedMedias = medias.sort((a, b) => a.date < b.date);
-            break;
+		case 'date':
+			sortedMedias = medias.sort((a, b) => a.date < b.date);
+			break;
 
-        case 'title':
-            sortedMedias = medias.sort((a, b) => a.title > b.title);
-            break;
+		case 'title':
+			sortedMedias = medias.sort((a, b) => a.title > b.title);
+			break;
 
-        default:
-            sortedMedias = medias.sort((a, b) => a.likes - b.likes);
-            break;
-    }
+		default:
+			sortedMedias = medias.sort((a, b) => a.likes - b.likes);
+			break;
+	}
 
-    return sortedMedias;
+	return sortedMedias;
 }
 
-export { createCustomDOM, createParagraphWithSpans, sortMediaByType };
+function mediaIsAVideo(media) {
+	return Object.prototype.hasOwnProperty.call(media, 'video');
+}
+
+export { createCustomDOM, createParagraphWithSpans, sortMediaByType, mediaIsAVideo };
