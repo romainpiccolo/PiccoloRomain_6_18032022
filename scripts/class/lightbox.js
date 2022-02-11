@@ -64,6 +64,11 @@ class Lightbox {
 						new Event('click')
 					);
 					break;
+				case 'Escape':
+					Lightbox.#closeLightbox.dispatchEvent(
+						new Event('click')
+					);
+					break;
 
 				default:
 					break;
