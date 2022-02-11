@@ -1,6 +1,7 @@
 import { createCustomDOM, createParagraphWithSpans, mediaIsAVideo } from '../utils/helpers.js';
 import { fetchPhotographerMedias } from '../utils/fetchDatas.js';
 import { Lightbox } from '../class/lightbox.js';
+import { ContactModal } from '../class/contactModal.js';
 
 
 function photographerFactory(data) {
@@ -8,6 +9,11 @@ function photographerFactory(data) {
 
 	const picture = `assets/photographers/avatar/${portrait}`;
 	const localisation = `${city}, ${country}`;
+
+    function initContactModal() {
+        return new ContactModal().init();
+    }
+
 
 	async function getPhotographerMedias() {
 		return fetchPhotographerMedias(id);
@@ -101,6 +107,7 @@ function photographerFactory(data) {
 		getPhotographStatsDOM,
 		getPhotographerMedias,
 		getPhotographGalleryDOM,
+        initContactModal
 	};
 }
 

@@ -3,7 +3,6 @@ import { eventHandler } from '../class/eventHandler.js';
 import { sortMediaByType } from '../utils/helpers.js';
 import { fetchPhotographerDatas } from '../utils/fetchDatas.js';
 import * as Filters from '../utils/filters.js';
-import * as ContactForm from '../utils/contactForm.js';
 
 async function sortContent() {
 	const photographId = parseInt(
@@ -58,12 +57,6 @@ function _loadEventListener() {
 	document
 		.querySelector('#selectButton')
 		.addEventListener('click', Filters.showFilters);
-	document
-		.querySelector('.contact_button')
-		.addEventListener('click', ContactForm.displayModal);
-	document
-		.querySelector('.close-modal')
-		.addEventListener('click', ContactForm.closeModal);
 	document.querySelectorAll('.filter-item').forEach((item) =>
 		item.addEventListener('click', (e) => {
 			eventHandler.changeButtonValue(e);
@@ -82,6 +75,8 @@ function _loadEventListener() {
 
 	const photographer = await fetchPhotographerDatas(id);
 	const photographerModel = photographerFactory(photographer);
+
+    photographerModel.initContactModal();
 
 	sessionStorage.setItem('currentPhotographerId', id);
 
