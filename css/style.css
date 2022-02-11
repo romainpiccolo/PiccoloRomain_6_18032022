@@ -49,3 +49,6 @@ ul {
 .display-none {
     display: none;
 }
+.stop-scrolling {
+    overflow: hidden;
+}

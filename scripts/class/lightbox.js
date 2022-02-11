@@ -1,4 +1,4 @@
-import { mediaIsAVideo } from '../utils/helpers.js'
+import { mediaIsAVideo, createCustomDOM } from '../utils/helpers.js'
 
 class Lightbox {
 
@@ -7,6 +7,9 @@ class Lightbox {
     static #previousContentDOM = document.getElementById('lightbox-previous');
     static #nextContentDOM = document.getElementById('lightbox-next');
     static #closeLightbox = document.getElementById('lightbox-close');
+
+    static #dialogContent = document.querySelector('.dialog-content');
+
     static #imgContentDOM =  document.querySelector('.dialog-img-content');
     static #videoContentDOM =  document.querySelector('.dialog-video-content');
     static #contentPATH = `assets/photographers/medias/`;
@@ -20,19 +23,32 @@ class Lightbox {
         Lightbox.#lightboxDOM.style.display = 'flex';
     }
 
-    #resetvideoContent() {
-        Lightbox.#videoContentDOM.src = '';
+    #createImgContent(media) {
+        const imgPATH = Lightbox.#contentPATH + `${media.photographerId}/${media.image}`;
+
+        return createCustomDOM(
+            'img',
+            { src: imgPATH, alt: media.title, id: 'content' },
+            ['dialog-img-content']
+        );
     }
 
-    #resetImgContent() {
-        Lightbox.#imgContentDOM.src = '';
-        Lightbox.#imgContentDOM.alt = '';
+    #createVideoContent(media) {
+        const videoPATH = Lightbox.#contentPATH + `${media.photographerId}/${media.video}`;
+
+        return createCustomDOM(
+            'video',
+            { src: videoPATH, alt: media.alt, controls: true, id: 'content' },
+            ['dialog-video-content']
+        );
     }
+
 
     init() {
         Lightbox.#previousContentDOM.addEventListener('click', () => this.previous());
         Lightbox.#nextContentDOM.addEventListener('click', () => this.next());
         Lightbox.#closeLightbox.addEventListener('click', this.close);
+        document.body.classList.add('stop-scrolling');
 
         this.loadContent();
         this.#openLightbox();
@@ -41,21 +57,14 @@ class Lightbox {
     loadContent() {
         const media = this.medias.find(media => media.id === this.currentId);
         const mediaIsAVideo = Lightbox.#mediaIsAVideo(media);
+        const currentContent = document.getElementById('content');
 
-
-
-        if (mediaIsAVideo) {
-            this.#resetImgContent();
-            Lightbox.#videoContentDOM.src = Lightbox.#contentPATH + `${media.photographerId}/${media.video}`;
-            Lightbox.#videoContentDOM.querySelector('source').src = Lightbox.#contentPATH + `${media.photographerId}/${media.video}`;
-        } else {
-            this.#resetvideoContent();
-            Lightbox.#imgContentDOM.src = Lightbox.#contentPATH + `${media.photographerId}/${media.image}`;
-            Lightbox.#imgContentDOM.alt = media.alt;
+        if (currentContent) {
+            currentContent.remove();
         }
 
-        Lightbox.#imgContentDOM.style.display = mediaIsAVideo ? 'none' : 'block';
-        Lightbox.#videoContentDOM.style.display = mediaIsAVideo ? 'block' : 'none';
+        const content = mediaIsAVideo ? this.#createVideoContent(media) : this.#createImgContent(media);
+        Lightbox.#dialogContent.append(content);
     }
 
     next() {
@@ -82,6 +91,7 @@ class Lightbox {
     }
 
     close() {
+        document.body.classList.remove('stop-scrolling');
         Lightbox.#lightboxDOM.style.display = 'none';
     }
 }
