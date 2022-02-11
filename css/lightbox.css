@@ -7,6 +7,8 @@
     background-color: white;
     display: none;
     justify-content: center;
+    align-items: center;
+    gap: 2rem;
 }
 
 .fa-times{
@@ -34,10 +36,15 @@
 }
 
 .dialog-img-content, .dialog-video-content {
-    height: 85%;
-    width: 70%;
-    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
     display: none;
+    border-radius: 5px;
+}
+
+.dialog-video-content {
+    object-fit: cover;
 }
 .dialog-content {
     height: 85%;

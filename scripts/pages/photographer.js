@@ -76,6 +76,10 @@ function _loadEventListener() {
 (async () => {
 	const id = parseInt(new URL(document.location).searchParams.get('id'));
 
+    if(!id) {
+        document.location.href = '/';
+    }
+
 	const photographer = await fetchPhotographerDatas(id);
 	const photographerModel = photographerFactory(photographer);
 

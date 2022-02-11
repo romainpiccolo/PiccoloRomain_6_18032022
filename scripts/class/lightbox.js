@@ -16,8 +16,17 @@ class Lightbox {
         this.currentId = currentId;
     }
 
-    _openLightbox() {
-        Lightbox.#lightboxDOM.style.display = 'block';
+    #openLightbox() {
+        Lightbox.#lightboxDOM.style.display = 'flex';
+    }
+
+    #resetvideoContent() {
+        Lightbox.#videoContentDOM.src = '';
+    }
+
+    #resetImgContent() {
+        Lightbox.#imgContentDOM.src = '';
+        Lightbox.#imgContentDOM.alt = '';
     }
 
     init() {
@@ -26,19 +35,21 @@ class Lightbox {
         Lightbox.#closeLightbox.addEventListener('click', this.close);
 
         this.loadContent();
-        this._openLightbox();
+        this.#openLightbox();
     }
 
     loadContent() {
         const media = this.medias.find(media => media.id === this.currentId);
         const mediaIsAVideo = Lightbox.#mediaIsAVideo(media);
 
+
+
         if (mediaIsAVideo) {
+            this.#resetImgContent();
             Lightbox.#videoContentDOM.src = Lightbox.#contentPATH + `${media.photographerId}/${media.video}`;
             Lightbox.#videoContentDOM.querySelector('source').src = Lightbox.#contentPATH + `${media.photographerId}/${media.video}`;
-
-            console.log('video');
         } else {
+            this.#resetvideoContent();
             Lightbox.#imgContentDOM.src = Lightbox.#contentPATH + `${media.photographerId}/${media.image}`;
             Lightbox.#imgContentDOM.alt = media.alt;
         }

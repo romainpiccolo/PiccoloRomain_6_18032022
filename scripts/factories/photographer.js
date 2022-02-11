@@ -1,5 +1,7 @@
 import { createCustomDOM, createParagraphWithSpans, mediaIsAVideo } from '../utils/helpers.js';
 import { fetchPhotographerMedias } from '../utils/fetchDatas.js';
+import { Lightbox } from '../class/lightbox.js';
+
 
 function photographerFactory(data) {
 	const { id, name, city, country, portrait, price, tagline } = data;
@@ -77,7 +79,7 @@ function photographerFactory(data) {
 				mediaIsVideo ? 'video' : 'img',
 				{ src: srcContent, alt: media.title, id: media.id },
 				['gallery-img'],
-				() => eventHandler.loadInLightbox(medias, media.id)
+				() => new Lightbox(medias, media.id).init()
 			);
 
 			p.lastChild.dataset.id = media.id;
