@@ -1,4 +1,18 @@
+import { showFilters, hideFilters } from '../utils/filters.js';
+
+
 class eventHandler {
+
+    static #selectButton = document.getElementById('#selectButton');
+    static #filterItems = document.querySelectorAll('.filter-item');
+
+    constructor() {
+        eventHandler.#selectButton.addEventListener('click', showFilters);
+        eventHandler.#filterItems.forEach(item => {
+            item.addEventListener('click' , () => changeButtonValue(e))
+        })
+    }
+
 	static addLike(event) {
 		const currentLike = parseInt(event.target.textContent);
 		event.target.textContent = currentLike + 1;
