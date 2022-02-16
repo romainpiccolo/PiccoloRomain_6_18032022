@@ -65,32 +65,42 @@
 			<a><i id="lightbox-next" class="fas fa-angle-right"></i></a>
 			<i id="lightbox-close" role="button" class="fas fa-times"></i>
 		</div>
+
+        <div class="success-submit-container">
+            <div class="success-submit">
+                <p>Merci ! Votre message a été envoyé.</p>
+            </div>
+        </div>
+       
 		<div id="contact_modal">
 			<div class="modal">
 				<header>
 					<h2>Contactez-moi</h2>
 					<img class="close-modal" src="assets/icons/close.svg" />
 				</header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
+				<form
+                    id="contactForm"
+                    method="post"
+                >
+					<div class="formData">
+						<label for="firstname">Prénom</label>
+						<input type="text" class="text-control" id="firstname" />
 					</div>
 
-                    <div>
-						<label>Nom</label>
-						<input />
+                    <div class="formData">
+						<label for="lastname">Nom</label>
+						<input type="text" class="text-control" id="lastname" />
 					</div>
 
-                    <div>
-						<label>Email</label>
-						<input />
+                    <div class="formData">
+						<label for="email">Email</label>
+						<input type="email" class="text-control" id="email" />
 					</div>
-                    <div>
-						<label>Votre message</label>
-						<textarea></textarea>
+                    <div class="formData">
+						<label for="message">Votre message</label>
+						<textarea class="text-control" id="message"></textarea>
 					</div>
-					<button class="contact_button">Envoyer</button>
+					<button id="sendForm" class="contact_button">Envoyer</button>
 				</form>
 			</div>
 		</div>
