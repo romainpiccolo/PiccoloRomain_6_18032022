@@ -32,7 +32,7 @@ function sortMediaByType(medias, type) {
 
 	switch (type) {
 		case 'popularity':
-			sortedMedias = medias.sort((a, b) => a.likes - b.likes);
+			sortedMedias = medias.sort((a, b) => b.likes - a.likes);
 			break;
 
 		case 'date':

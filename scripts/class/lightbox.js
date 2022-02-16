@@ -10,6 +10,8 @@ class Lightbox {
 	static #contentPATH = `assets/photographers/medias/`;
 
 	constructor(listMedias, currentId) {
+        console.log(listMedias);
+
 		this.medias = listMedias;
 		this.currentId = currentId;
 	}
@@ -55,19 +57,13 @@ class Lightbox {
 
 			switch (event.code) {
 				case 'ArrowRight':
-					Lightbox.#previousContentDOM.dispatchEvent(
-						new Event('click')
-					);
+                    this.next();
 					break;
 				case 'ArrowLeft':
-					Lightbox.#previousContentDOM.dispatchEvent(
-						new Event('click')
-					);
+					this.prev();
 					break;
 				case 'Escape':
-					Lightbox.#closeLightbox.dispatchEvent(
-						new Event('click')
-					);
+					this.close();
 					break;
 
 				default:
