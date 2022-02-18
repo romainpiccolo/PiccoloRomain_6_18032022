@@ -95,9 +95,10 @@ class ContactModal {
         }
 
         if (isValid) {
-            this.resetForm();
             this.toggleSuccessSubmit();
             setTimeout(this.toggleSuccessSubmit, 3000);
+            console.log(ContactModal.#firstname.value, ContactModal.#lastname.value, ContactModal.#email.value, ContactModal.#message.value);
+            this.resetForm();
             this.closeModal();
         }
 
