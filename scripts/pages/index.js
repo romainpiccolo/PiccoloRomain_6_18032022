@@ -1,39 +1,23 @@
-import { photographerFactory } from '../factories/photographer.js';
+import { PhotographApi } from '../api/api.js';
+import { Photograph } from '../models/Photograph.js';
+import { PhotographCard } from '../template/PhotographCard.js'
 
-async function getPhotographers() {
-	const datas = await fetch('../data/photographers.json')
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error('Error HTTP');
-			}
-			return response.json();
-		})
-		.then((res) => res)
-		.catch((error) => {
-			console.log(error);
-		});
+class App {
+    constructor() {
+        this.$photographWrapper = document.querySelector('.photographer_section');
+        this.photographAPI = new PhotographApi('/data/photographers.json');
+    }
 
-	console.log(datas);
+    async main() {
+        const photographsData = await this.photographAPI.getPhotographs();
 
-	return { photographers: datas.photographers };
+        photographsData.map(photograph => new Photograph(photograph))
+        .forEach(photograph => {
+            const template = new PhotographCard(photograph);
+            this.$photographWrapper.appendChild(template.render());
+        })
+    }
 }
 
-async function displayData(photographers) {
-	const photographersSection = document.querySelector(
-		'.photographer_section'
-	);
-
-	photographers.forEach((photographer) => {
-		const photographerModel = photographerFactory(photographer);
-		const userCardDOM = photographerModel.getUserCardDOM();
-		photographersSection.appendChild(userCardDOM);
-	});
-}
-
-async function init() {
-	// Récupère les datas des photographes
-	const { photographers } = await getPhotographers();
-	displayData(photographers);
-}
-
-init();
+const app = new App();
+app.main();
