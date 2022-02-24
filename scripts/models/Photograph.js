@@ -7,6 +7,7 @@ class Photograph {
         this._portrait = data.portrait;
         this._price = data.price;
         this._tagline = data.tagline;
+        this._medias = data.medias;
     }
 
     get city() {
@@ -35,6 +36,10 @@ class Photograph {
 
     get tagline() {
         return this._tagline
+    }
+
+    get medias() {
+        return this._medias
     }
 }
 

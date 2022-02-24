@@ -1,0 +1,35 @@
+.photograph-header-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--color-lightgrey);
+    height: 300px;
+    margin: 0 100px;
+}
+
+.photograph-header-infos, .photograph-header-contact, .photograph-header-photo {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.photograph-header-infos div {
+    display: flex;
+    flex-direction: column;
+}
+
+.photograph-header-infos h1 {
+    color: var(--color-secondary);
+    font-size: 4rem;
+    margin: 0;
+}
+
+.photograph-header-infos span:nth-child(2) {
+    color: var(--color-primary);
+    font-size: 1.5rem;
+}
+
+.photograph-header-infos span:nth-child(3) {
+    color: var(--color-grey);
+    font-size: 1rem;
+}

@@ -2,6 +2,7 @@
 @import 'index.css';
 @import 'photographer.css';
 @import 'Card/photographCard.css';
+@import 'photographHeader.css';
 
 body {
 	font-family: 'DM Sans', sans-serif;

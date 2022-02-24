@@ -14,7 +14,7 @@
     display: flex;
 }
 
-.photograph-header {
+/* .photograph-header {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -60,7 +60,7 @@
 .photograph-infos p span:nth-child(3) {
     color: var(--color-grey);
     font-size: 1rem;
-}
+} */
 
 .contact_button {
     font-size: 20px;

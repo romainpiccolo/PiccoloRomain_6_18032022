@@ -2,7 +2,7 @@ import { PhotographApi } from '../api/api.js';
 import { Photograph } from '../models/Photograph.js';
 import { PhotographCard } from '../template/PhotographCard.js'
 
-class App {
+class IndexPage {
     constructor() {
         this.$photographWrapper = document.querySelector('.photographer_section');
         this.photographAPI = new PhotographApi('/data/photographers.json');
@@ -19,5 +19,5 @@ class App {
     }
 }
 
-const app = new App();
-app.main();
+const indexPage = new IndexPage();
+indexPage.main();

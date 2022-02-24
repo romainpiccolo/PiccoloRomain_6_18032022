@@ -20,15 +20,14 @@ class PhotographApi extends Api {
         return datas.photographers;
     }
 
-    async getPhotographsWithMedias() {
+    async getPhotographWithMedias(photographId) {
         const datas = await this.get();
 
          //Include medias in photographers datas
-         datas.photographers.map(photograph => {
-            photograph.medias = datas.media.filter(media => media.photographerId === photograph.id);
-        })
+        const photographer  = datas.photographers.find(photograph => photograph.id === photographId)
+        photographer.medias = datas.media.filter(media => media.photographerId === photographId);
 
-        return datas.photographers;
+        return photographer;
     }
 }
 
