@@ -1,17 +1,17 @@
 class PhotographHeader {
-    constructor(photograph, ContactModalSubject) {
+    constructor(photograph, contactModal) {
         this._photograph = photograph;
-        this.ContactModalSubject = ContactModalSubject;
+        this._contactModal = contactModal;
 
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add('photograph-header-wrapper');
     }
 
-    handleContactButton() {
+    #handleContactButton() {
         this.$wrapper
             .querySelector('.contact_button')
             .addEventListener('click', () => {
-                this.ContactModalSubject.fire('SHOW');
+                this._contactModal.show();
             })
     }
 
@@ -28,12 +28,12 @@ class PhotographHeader {
                 <button class="contact_button">Contactez-moi</button>
              </div>
              <div class="photograph-header-photo">
-                <img src="assets/photographers/avatar/MimiKeel.jpg" alt="Mimi Keel" class="avatar-photo">
+                <img src="${this._photograph.portrait}" alt="${this._photograph.name}" class="avatar-photo">
              </div>
         `
 
         this.$wrapper.innerHTML = photographHeader;
-        this.handleContactButton();
+        this.#handleContactButton();
         return this.$wrapper;
     }
 }

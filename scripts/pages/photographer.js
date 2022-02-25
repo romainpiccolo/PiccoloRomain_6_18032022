@@ -1,89 +1,60 @@
-import { photographerFactory } from '../factories/photographer.js';
-import { eventHandler } from '../class/eventHandler.js';
-import { sortMediaByType } from '../utils/helpers.js';
-import { fetchPhotographerDatas } from '../utils/fetchDatas.js';
-import * as Filters from '../utils/filters.js';
+import { PhotographApi } from '../api/api.js';
+import { Photograph } from '../models/Photograph.js';
+import { PhotographHeader } from '../template/PhotographHeader.js';
+import { ContactModal } from '../template/ContactModal.js';
+import { SuccessModal } from '../template/SuccessModal.js'
 
-async function sortContent() {
-	const photographId = parseInt(
-		new URL(document.location).searchParams.get('id')
-	);
-	const photographerModel = photographerFactory({ id: photographId });
-	const sortType = document.querySelector('.select-button').value;
+import { Validator } from '../utils/Validator.js'
 
-	Filters.hideFilters();
+class PhotographerPage {
+    constructor() {
+        this.$photographHeader = document.querySelector('.photograph-header');
+        this.$photographFilters = document.querySelector('.photograph-filters');
+        this.$photographGallery = document.querySelector('.photograph-gallery');
+        this.$photographStats = document.querySelector('.photograph-stats');
 
-	let medias = await photographerModel.getPhotographerMedias();
-	generatePhotographGallery(
-		photographerModel,
-		sortMediaByType(medias, sortType)
-	);
-}
+        this.$contactModal = document.getElementById('contactModal');
+        this.$successModal = document.getElementById('successModal');
 
-function generatePhotographGallery(photographerModel, medias) {
-	let wrapperDiv = document.querySelector('.gallery-wrapper');
-	if (wrapperDiv) {
-		wrapperDiv.remove();
-	}
-	wrapperDiv = photographerModel.getPhotographGalleryDOM(
-		medias,
-		eventHandler
-	);
-
-	const gallery = document.querySelector('.photograph-gallery');
-	gallery.appendChild(wrapperDiv);
-}
-
-function generatePhotographerHeader(photographerModel) {
-	const photographInfoSection = document.querySelector('.photograph-infos');
-	const photographPhotoSection = document.querySelector('.photograph-photo');
-
-	const photographInfo = photographerModel.getPhotographInfoDOM();
-	const photographAvatar = photographerModel.getPhotographAvatarDOM();
-
-	photographInfoSection.appendChild(photographInfo);
-	photographPhotoSection.appendChild(photographAvatar);
-}
-
-function generatePhotographerStatSection(photographerModel) {
-	const photographStatSection = document.querySelector('.photograph-stats');
-
-	const photographStats = photographerModel.getPhotographStatsDOM();
-
-	photographStatSection.appendChild(photographStats);
-}
-
-function _loadEventListener() {
-	document
-		.querySelector('#selectButton')
-		.addEventListener('click', Filters.showFilters);
-	document.querySelectorAll('.filter-item').forEach((item) =>
-		item.addEventListener('click', (e) => {
-			eventHandler.changeButtonValue(e);
-			sortContent();
-		})
-	);
-}
-
-//Auto execute function to get photographer datas
-(async () => {
-	const id = parseInt(new URL(document.location).searchParams.get('id'));
-
-    if(!id) {
-        document.location.href = '/';
+        this.photographAPI = new PhotographApi('/data/photographers.json');
     }
 
-	const photographer = await fetchPhotographerDatas(id);
-	const photographerModel = photographerFactory(photographer);
+    async main() {
 
-    photographerModel.initContactModal();
+        const photographId = parseInt(new URL(document.location).searchParams.get('id'));
 
-	sessionStorage.setItem('currentPhotographerId', id);
+        if(!photographId) {
+            document.location.href = '/';
+        }
 
-	_loadEventListener();
+        const photographsData = await this.photographAPI.getPhotographWithMedias(photographId);
+        const photograph = new Photograph(photographsData);
 
-	generatePhotographerHeader(photographerModel);
-	generatePhotographerStatSection(photographerModel);
-	await sortContent();
-	eventHandler.refreshPhotograhStats();
-})();
+        console.log(photographsData);
+
+        //Generate Success Modal
+        const successModalTemplate = new SuccessModal();
+        this.$successModal.appendChild(successModalTemplate.render());
+
+        //Generate Contact Modal
+        const contactModalTemplate = new ContactModal(photograph, Validator, successModalTemplate);
+        this.$contactModal.appendChild(contactModalTemplate.render());
+
+        //Generate Header
+        const photographHeaderTemplate = new PhotographHeader(photograph, contactModalTemplate);
+        this.$photographHeader.appendChild(photographHeaderTemplate.render());
+
+      
+
+
+        //Generate Filters
+
+        
+
+        //Generate Gallery
+        //Generate Stats
+    }
+}
+
+const photographerPage = new PhotographerPage();
+photographerPage.main();

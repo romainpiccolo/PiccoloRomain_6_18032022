@@ -10,7 +10,7 @@
 .photograph-header-infos, .photograph-header-contact, .photograph-header-photo {
     display: flex;
     justify-content: center;
-    flex: 1;
+    /* flex: 1; */
 }
 
 .photograph-header-infos div {

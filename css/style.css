@@ -1,8 +1,10 @@
 @import 'variables.css';
 @import 'index.css';
 @import 'photographer.css';
-@import 'Card/photographCard.css';
+@import 'Cards/photographCard.css';
 @import 'photographHeader.css';
+@import 'Modals/contactModal.css';
+@import 'Modals/successModal.css';
 
 body {
 	font-family: 'DM Sans', sans-serif;
@@ -50,6 +52,10 @@ ul {
 
 .display-none {
     display: none;
+}
+
+.display-block {
+    display: block;
 }
 
 .display-flex {

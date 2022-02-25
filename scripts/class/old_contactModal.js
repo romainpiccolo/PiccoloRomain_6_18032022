@@ -38,23 +38,23 @@ class ContactModal {
 
 	constructor() {}
 
-	init() {
-		ContactModal.#contactButton.addEventListener(
-			'click',
-			this.displayModal.bind(this)
-		);
-		ContactModal.#closeModal.addEventListener('click', this.closeModal);
-        ContactModal.#sendForm.addEventListener('click', this.validateForm.bind(this));
-	}
+	// init() {
+	// 	ContactModal.#contactButton.addEventListener(
+	// 		'click',
+	// 		this.displayModal.bind(this)
+	// 	);
+	// 	ContactModal.#closeModal.addEventListener('click', this.closeModal);
+    //     ContactModal.#sendForm.addEventListener('click', this.validateForm.bind(this));
+	// }
 
-	displayModal() {
-		ContactModal.#contactModal.style.display = 'block';
-        this.resetForm();
-	}
+	// displayModal() {
+	// 	ContactModal.#contactModal.style.display = 'block';
+    //     this.resetForm();
+	// }
 
-	closeModal() {
-		ContactModal.#contactModal.style.display = 'none';
-	}
+	// closeModal() {
+	// 	ContactModal.#contactModal.style.display = 'none';
+	// }
 
     toggleSuccessSubmit() {
         ContactModal.#successSubmit.classList.toggle("display-flex")
