@@ -1,9 +1,11 @@
 import { PhotographApi } from '../api/api.js';
 import { Photograph } from '../models/Photograph.js';
 import { PhotographHeader } from '../template/PhotographHeader.js';
+import { MediaCard } from '../template/MediaCard.js';
 import { ContactModal } from '../template/ContactModal.js';
 import { SuccessModal } from '../template/SuccessModal.js'
 
+import { MediaFactory } from '../factories/MediasFactory.js';
 import { Validator } from '../utils/Validator.js'
 
 class PhotographerPage {
@@ -30,7 +32,7 @@ class PhotographerPage {
         const photographsData = await this.photographAPI.getPhotographWithMedias(photographId);
         const photograph = new Photograph(photographsData);
 
-        console.log(photographsData);
+        console.log(photograph);
 
         //Generate Success Modal
         const successModalTemplate = new SuccessModal();
@@ -44,14 +46,17 @@ class PhotographerPage {
         const photographHeaderTemplate = new PhotographHeader(photograph, contactModalTemplate);
         this.$photographHeader.appendChild(photographHeaderTemplate.render());
 
-      
-
-
         //Generate Filters
 
-        
-
         //Generate Gallery
+        //TODOS Add factory for media img or video
+        photograph.medias.forEach(media => {
+            const mediaType = Object.prototype.hasOwnProperty.call(media, 'video') ? 'video': 'img';
+            const mediaObject = new MediaFactory(media, mediaType);
+            const mediaTemplate = new MediaCard(mediaObject);
+            this.$photographGallery.appendChild(mediaTemplate.render());
+        });
+
         //Generate Stats
     }
 }

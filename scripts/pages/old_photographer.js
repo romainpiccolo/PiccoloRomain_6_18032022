@@ -1,7 +1,7 @@
 import { photographerFactory } from '../factories/photographer.js';
 import { eventHandler } from '../class/eventHandler.js';
 import { sortMediaByType } from '../utils/helpers.js';
-import { fetchPhotographerDatas } from '../utils/fetchDatas.js';
+import { fetchPhotographerDatas } from '../utils/old_fetchDatas.js';
 import * as Filters from '../utils/filters.js';
 
 async function sortContent() {

@@ -1,7 +1,7 @@
 import { createCustomDOM, createParagraphWithSpans, mediaIsAVideo } from '../utils/helpers.js';
-import { fetchPhotographerMedias } from '../utils/fetchDatas.js';
+import { fetchPhotographerMedias } from '../utils/old_fetchDatas.js';
 import { Lightbox } from '../class/lightbox.js';
-import { ContactModal } from '../class/contactModal.js';
+import { ContactModal } from '../class/old_contactModal.js';
 
 
 function photographerFactory(data) {

@@ -2,7 +2,9 @@
 @import 'index.css';
 @import 'photographer.css';
 @import 'Cards/photographCard.css';
+@import 'Cards/mediaCard.css';
 @import 'photographHeader.css';
+@import 'photographGallery.css';
 @import 'Modals/contactModal.css';
 @import 'Modals/successModal.css';
 

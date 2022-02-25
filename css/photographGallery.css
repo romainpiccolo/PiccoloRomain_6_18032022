@@ -1,0 +1,30 @@
+.photograph-gallery {
+    display: grid;
+    justify-content: center;
+    gap: 3rem 5rem;
+    grid-template-columns: repeat(auto-fill, 350px);
+    margin: 30px 100px;
+}
+
+.gallery-img {
+    width: 350px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.gallery-img-infos {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-primary);
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.gallery-img-infos span:last-child::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f004";
+    margin-left: 5px;
+}
