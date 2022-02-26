@@ -75,7 +75,7 @@
     cursor: pointer;
 }
 
-.photograph-main {
+/* .photograph-main {
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -149,7 +149,7 @@
     background-color: white;
     height: 1px;
     padding: 0 !important;
-}
+} */
 
 
 .photograph-stats {

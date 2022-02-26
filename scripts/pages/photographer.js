@@ -4,6 +4,7 @@ import { PhotographHeader } from '../template/PhotographHeader.js';
 import { MediaCard } from '../template/MediaCard.js';
 import { ContactModal } from '../template/ContactModal.js';
 import { SuccessModal } from '../template/SuccessModal.js'
+import { FilterSelect } from '../template/FilterSelect.js'
 
 import { MediaFactory } from '../factories/MediasFactory.js';
 import { Validator } from '../utils/Validator.js'
@@ -47,9 +48,10 @@ class PhotographerPage {
         this.$photographHeader.appendChild(photographHeaderTemplate.render());
 
         //Generate Filters
+        const filterSelectTemplate = new FilterSelect(photograph.medias);
+        this.$photographFilters.appendChild(filterSelectTemplate.render());
 
         //Generate Gallery
-        //TODOS Add factory for media img or video
         photograph.medias.forEach(media => {
             const mediaType = Object.prototype.hasOwnProperty.call(media, 'video') ? 'video': 'img';
             const mediaObject = new MediaFactory(media, mediaType);

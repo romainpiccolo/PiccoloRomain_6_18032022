@@ -1,0 +1,75 @@
+.photograph-main {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 30px 100px;
+}
+
+.photograph-main label {
+    font-weight: 700;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-button {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--color-primary);
+    color: white;
+    width: 150px;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+  
+}
+
+.select-button::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f106"
+}
+
+.filters-list {
+    display: none;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    background-color: var(--color-primary);
+    width: 150px;
+    color: white;
+    border-radius: 5px;
+}
+
+.filters-list li {
+    padding: 15px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.filters-list li:hover {
+    background-color: var(--color-secondary);
+    border-radius: 5px;
+}
+
+.filters-list li:first-child {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filters-list li:first-child::after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f107"
+}
+
+.white-line {
+    background-color: white;
+    height: 1px;
+    padding: 0 !important;
+}

@@ -10,12 +10,13 @@
 .photograph-header-infos, .photograph-header-contact, .photograph-header-photo {
     display: flex;
     justify-content: center;
-    /* flex: 1; */
+    flex: 1;
 }
 
 .photograph-header-infos div {
     display: flex;
     flex-direction: column;
+    width: 75%;
 }
 
 .photograph-header-infos h1 {
