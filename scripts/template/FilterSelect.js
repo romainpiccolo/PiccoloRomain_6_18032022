@@ -1,6 +1,8 @@
 class FilterSelect {
-    constructor(medias) {
+    constructor(medias, FilterPublisher) {
         this._medias = medias;
+        this.FilterPublisher = FilterPublisher;
+
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add('filter-select-wrapper');
     }
@@ -11,6 +13,30 @@ class FilterSelect {
 
     #hideFilterList() {
         document.querySelector('.filters-list').style.display = 'none';
+    }
+
+    #sortMediaByType(medias, type) {
+        let sortedMedias = null;
+    
+        switch (type) {
+            case 'popularity':
+                sortedMedias = medias.sort((a, b) => b.likes - a.likes);
+                break;
+    
+            case 'date':
+                sortedMedias = medias.sort((a, b) => a.date < b.date);
+                break;
+    
+            case 'title':
+                sortedMedias = medias.sort((a, b) => a.title > b.title);
+                break;
+    
+            default:
+                sortedMedias = medias.sort((a, b) => a.likes - b.likes);
+                break;
+        }
+    
+        return sortedMedias;
     }
 
     #changeButtonValue(e) {
@@ -25,12 +51,13 @@ class FilterSelect {
     }
 
     #handleSelectItem() {
+
         this.$wrapper.querySelectorAll('.filter-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 this.#changeButtonValue(e);
                 const value = e.target.getAttribute('value');
-                console.log(value);
-                // sortContent();
+                const sortedMedias = this.#sortMediaByType(this._medias, value);
+                this.FilterPublisher.notify(sortedMedias);
                 this.#hideFilterList();
             })
         })

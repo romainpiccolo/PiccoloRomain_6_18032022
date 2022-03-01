@@ -1,4 +1,4 @@
-.photograph-gallery {
+.photograph-gallery-wrapper {
     display: grid;
     justify-content: center;
     gap: 3rem 5rem;

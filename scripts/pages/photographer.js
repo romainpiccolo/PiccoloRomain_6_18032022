@@ -2,9 +2,12 @@ import { PhotographApi } from '../api/api.js';
 import { Photograph } from '../models/Photograph.js';
 import { PhotographHeader } from '../template/PhotographHeader.js';
 import { MediaCard } from '../template/MediaCard.js';
+import { MediaGallery } from '../template/MediaGallery.js';
 import { ContactModal } from '../template/ContactModal.js';
 import { SuccessModal } from '../template/SuccessModal.js'
 import { FilterSelect } from '../template/FilterSelect.js'
+
+import { FilterPublisher } from '../publishers/FilterPublisher.js';
 
 import { MediaFactory } from '../factories/MediasFactory.js';
 import { Validator } from '../utils/Validator.js'
@@ -20,6 +23,8 @@ class PhotographerPage {
         this.$successModal = document.getElementById('successModal');
 
         this.photographAPI = new PhotographApi('/data/photographers.json');
+
+        this.FilterPublisher = new FilterPublisher();
     }
 
     async main() {
@@ -36,28 +41,25 @@ class PhotographerPage {
         console.log(photograph);
 
         //Generate Success Modal
-        const successModalTemplate = new SuccessModal();
-        this.$successModal.appendChild(successModalTemplate.render());
+        const successModal = new SuccessModal();
+        this.$successModal.appendChild(successModal.render());
 
         //Generate Contact Modal
-        const contactModalTemplate = new ContactModal(photograph, Validator, successModalTemplate);
-        this.$contactModal.appendChild(contactModalTemplate.render());
+        const contactModal = new ContactModal(photograph, Validator, successModal);
+        this.$contactModal.appendChild(contactModal.render());
 
         //Generate Header
-        const photographHeaderTemplate = new PhotographHeader(photograph, contactModalTemplate);
-        this.$photographHeader.appendChild(photographHeaderTemplate.render());
+        const photographHeader = new PhotographHeader(photograph, contactModal);
+        this.$photographHeader.appendChild(photographHeader.render());
 
         //Generate Filters
-        const filterSelectTemplate = new FilterSelect(photograph.medias);
-        this.$photographFilters.appendChild(filterSelectTemplate.render());
+        const filterSelect = new FilterSelect(photograph.medias, this.FilterPublisher);
+        this.$photographFilters.appendChild(filterSelect.render());
 
         //Generate Gallery
-        photograph.medias.forEach(media => {
-            const mediaType = Object.prototype.hasOwnProperty.call(media, 'video') ? 'video': 'img';
-            const mediaObject = new MediaFactory(media, mediaType);
-            const mediaTemplate = new MediaCard(mediaObject);
-            this.$photographGallery.appendChild(mediaTemplate.render());
-        });
+        const mediaGallery = new MediaGallery(this.$photographGallery, photograph.medias, MediaCard, MediaFactory);
+        mediaGallery.render();
+        this.FilterPublisher.subscribe(mediaGallery);
 
         //Generate Stats
     }
