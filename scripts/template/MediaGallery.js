@@ -1,9 +1,11 @@
+import { MediaCard } from '../template/MediaCard.js';
+import { MediaFactory } from '../factories/MediasFactory.js';
+
 class MediaGallery {
-    constructor(anchorDOM, medias, MediaCard, MediaFactory) {
+    constructor(anchorDOM, medias, StatsPublisher) {
         this._medias = medias;
-        this.MediaCard = MediaCard;
-        this.MediaFactory = MediaFactory;
         this._anchorDOM = anchorDOM;
+        this.StatsPublisher = StatsPublisher;
     }
     
     update(medias) {
@@ -23,12 +25,10 @@ class MediaGallery {
 
         this._medias.forEach(media => {
             const mediaType = Object.prototype.hasOwnProperty.call(media, 'video') ? 'video': 'img';
-            const mediaObject = new this.MediaFactory(media, mediaType);
-            const mediaCard = new this.MediaCard(mediaObject);
+            const mediaObject = new MediaFactory(media, mediaType);
+            const mediaCard = new MediaCard(mediaObject, this.StatsPublisher);
 
             wrapper.appendChild(mediaCard.render());
-
-            // this.$wrapper.appendChild(mediaCard.render())
         });
         
         this._anchorDOM.appendChild(wrapper)

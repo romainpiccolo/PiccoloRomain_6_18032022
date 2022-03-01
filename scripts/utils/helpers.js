@@ -27,29 +27,29 @@ function createParagraphWithSpans(spansContent, classList = []) {
 	return p;
 }
 
-function sortMediaByType(medias, type) {
-	let sortedMedias = null;
+// function sortMediaByType(medias, type) {
+// 	let sortedMedias = null;
 
-	switch (type) {
-		case 'popularity':
-			sortedMedias = medias.sort((a, b) => b.likes - a.likes);
-			break;
+// 	switch (type) {
+// 		case 'popularity':
+// 			sortedMedias = medias.sort((a, b) => b.likes - a.likes);
+// 			break;
 
-		case 'date':
-			sortedMedias = medias.sort((a, b) => a.date < b.date);
-			break;
+// 		case 'date':
+// 			sortedMedias = medias.sort((a, b) => a.date < b.date);
+// 			break;
 
-		case 'title':
-			sortedMedias = medias.sort((a, b) => a.title > b.title);
-			break;
+// 		case 'title':
+// 			sortedMedias = medias.sort((a, b) => a.title > b.title);
+// 			break;
 
-		default:
-			sortedMedias = medias.sort((a, b) => a.likes - b.likes);
-			break;
-	}
+// 		default:
+// 			sortedMedias = medias.sort((a, b) => a.likes - b.likes);
+// 			break;
+// 	}
 
-	return sortedMedias;
-}
+// 	return sortedMedias;
+// }
 
 function mediaIsAVideo(media) {
 	return Object.prototype.hasOwnProperty.call(media, 'video');

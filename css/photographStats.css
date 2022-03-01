@@ -1,0 +1,25 @@
+.photograph-stat-wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 2%;
+    background-color: var(--color-tertiary);
+    border-radius: 5px 5px 0 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 250px;
+    padding: 10px;
+}
+
+.photograph-stat-wrapper p {
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+}
+
+.photograph-stat-wrapper p span:first-child::after{
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f004";
+    margin-left: 5px;
+    font-size: 1.1rem;
+}

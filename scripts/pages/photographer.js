@@ -1,15 +1,16 @@
 import { PhotographApi } from '../api/api.js';
 import { Photograph } from '../models/Photograph.js';
 import { PhotographHeader } from '../template/PhotographHeader.js';
-import { MediaCard } from '../template/MediaCard.js';
+import { PhotographStats } from '../template/PhotographStats.js';
 import { MediaGallery } from '../template/MediaGallery.js';
 import { ContactModal } from '../template/ContactModal.js';
 import { SuccessModal } from '../template/SuccessModal.js'
 import { FilterSelect } from '../template/FilterSelect.js'
 
 import { FilterPublisher } from '../publishers/FilterPublisher.js';
+import { StatsPublisher } from '../publishers/StatsPublisher.js';
 
-import { MediaFactory } from '../factories/MediasFactory.js';
+
 import { Validator } from '../utils/Validator.js'
 
 class PhotographerPage {
@@ -25,6 +26,7 @@ class PhotographerPage {
         this.photographAPI = new PhotographApi('/data/photographers.json');
 
         this.FilterPublisher = new FilterPublisher();
+        this.StatsPublisher = new StatsPublisher();
     }
 
     async main() {
@@ -37,8 +39,6 @@ class PhotographerPage {
 
         const photographsData = await this.photographAPI.getPhotographWithMedias(photographId);
         const photograph = new Photograph(photographsData);
-
-        console.log(photograph);
 
         //Generate Success Modal
         const successModal = new SuccessModal();
@@ -57,11 +57,14 @@ class PhotographerPage {
         this.$photographFilters.appendChild(filterSelect.render());
 
         //Generate Gallery
-        const mediaGallery = new MediaGallery(this.$photographGallery, photograph.medias, MediaCard, MediaFactory);
+        const mediaGallery = new MediaGallery(this.$photographGallery, photograph.medias, this.StatsPublisher);
         mediaGallery.render();
         this.FilterPublisher.subscribe(mediaGallery);
 
         //Generate Stats
+        const photographStats = new PhotographStats(photograph);
+        this.$photographStats.appendChild(photographStats.render());
+        this.StatsPublisher.subscribe(photographStats);
     }
 }
 
