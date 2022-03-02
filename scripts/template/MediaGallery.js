@@ -24,10 +24,7 @@ class MediaGallery {
         wrapper.classList.add('photograph-gallery-wrapper');
 
         this._medias.forEach(media => {
-            const mediaType = Object.prototype.hasOwnProperty.call(media, 'video') ? 'video': 'img';
-            const mediaObject = new MediaFactory(media, mediaType);
-            const mediaCard = new MediaCard(mediaObject, this.StatsPublisher);
-
+            const mediaCard = new MediaCard(media, this.StatsPublisher);
             wrapper.appendChild(mediaCard.render());
         });
         

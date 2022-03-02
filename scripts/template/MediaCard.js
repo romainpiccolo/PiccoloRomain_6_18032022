@@ -1,8 +1,7 @@
 class MediaCard {
     constructor(media, StatsPublisher) {
         this._media = media;
-        this._totalLikes = media.likes;
-        this._isLiked = false;
+        this._likes = media.likes;
         this.StatsPublisher = StatsPublisher;
 
         this.$wrapper = document.createElement('div');
@@ -12,17 +11,18 @@ class MediaCard {
     #handleLikeButton() {
         this.$wrapper.querySelector('#likeButton')
 		.addEventListener('click', (e) => {
-            if (this._isLiked) {
+
+            if (this._media.isLiked) {
                 this.StatsPublisher.notify('DEC');
-                this._totalLikes -= 1; 
-                this._isLiked = false;
+                this._likes -= 1;
+                this._media.subLike()
             } else {
                 this.StatsPublisher.notify('INC');
-                this._totalLikes += 1; 
-                this._isLiked = true;
+                this._likes += 1;
+                this._media.addLike()
             }
             
-            e.target.textContent = this._totalLikes;
+            e.target.textContent = this._likes;
         });
     }
 
@@ -32,7 +32,7 @@ class MediaCard {
                 <${this._media.mediaType} src="${this._media.thumbnail}" id="${this._media.id}" class="gallery-img"></${this._media.mediaType}>
                 <p class="gallery-img-infos">
                 <span>${this._media.title}</span>
-                <span id="likeButton" data-id="${this._media.id}">${this._totalLikes}</span>
+                <span id="likeButton" data-id="${this._media.id}">${this._likes}</span>
                 </p>
             </a>
         `

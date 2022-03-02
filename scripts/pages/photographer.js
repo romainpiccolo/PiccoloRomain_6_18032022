@@ -7,6 +7,8 @@ import { ContactModal } from '../template/ContactModal.js';
 import { SuccessModal } from '../template/SuccessModal.js'
 import { FilterSelect } from '../template/FilterSelect.js'
 
+import { MediaFactory } from '../factories/MediasFactory.js';
+
 import { FilterPublisher } from '../publishers/FilterPublisher.js';
 import { StatsPublisher } from '../publishers/StatsPublisher.js';
 
@@ -29,6 +31,17 @@ class PhotographerPage {
         this.StatsPublisher = new StatsPublisher();
     }
 
+    #getPhotographMedias(photograph) {
+        let photographMedias = [];
+
+        photograph._medias.forEach(media => {
+            const mediaType = Object.prototype.hasOwnProperty.call(media, 'video') ? 'video': 'img';
+            photographMedias.push(new MediaFactory(media, mediaType));
+        })
+
+        return photographMedias;
+    }
+
     async main() {
 
         const photographId = parseInt(new URL(document.location).searchParams.get('id'));
@@ -37,8 +50,10 @@ class PhotographerPage {
             document.location.href = '/';
         }
 
+        //Fetch photograph datas and medias
         const photographsData = await this.photographAPI.getPhotographWithMedias(photographId);
         const photograph = new Photograph(photographsData);
+        const photographMedias = this.#getPhotographMedias(photograph);
 
         //Generate Success Modal
         const successModal = new SuccessModal();
@@ -53,11 +68,11 @@ class PhotographerPage {
         this.$photographHeader.appendChild(photographHeader.render());
 
         //Generate Filters
-        const filterSelect = new FilterSelect(photograph.medias, this.FilterPublisher);
+        const filterSelect = new FilterSelect(photographMedias, this.FilterPublisher);
         this.$photographFilters.appendChild(filterSelect.render());
 
         //Generate Gallery
-        const mediaGallery = new MediaGallery(this.$photographGallery, photograph.medias, this.StatsPublisher);
+        const mediaGallery = new MediaGallery(this.$photographGallery, photographMedias, this.StatsPublisher);
         mediaGallery.render();
         this.FilterPublisher.subscribe(mediaGallery);
 

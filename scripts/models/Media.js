@@ -7,6 +7,7 @@ class Media {
         this._price = data.price;
         this._title = data.title;
         this._mediaType =  Object.prototype.hasOwnProperty.call(data, 'video') ? 'video': 'img';
+        this._isLiked = false;
     }
 
     get id() {
@@ -35,6 +36,20 @@ class Media {
     
     get mediaType() {
         return this._mediaType
+    }
+
+    get isLiked() {
+        return this._isLiked
+    }
+
+    addLike() {
+        this._likes += 1;
+        this._isLiked = true;
+    }
+ 
+    subLike() {
+        this._likes -= 1;
+        this._isLiked = false;
     }
 }
 
