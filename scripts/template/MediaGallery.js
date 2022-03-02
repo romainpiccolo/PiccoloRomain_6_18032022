@@ -1,11 +1,11 @@
 import { MediaCard } from '../template/MediaCard.js';
-import { MediaFactory } from '../factories/MediasFactory.js';
 
 class MediaGallery {
-    constructor(anchorDOM, medias, StatsPublisher) {
+    constructor(anchorDOM, medias, StatsPublisher, LightboxPublisher) {
         this._medias = medias;
         this._anchorDOM = anchorDOM;
         this.StatsPublisher = StatsPublisher;
+        this.LightboxPublisher = LightboxPublisher;
     }
     
     update(medias) {
@@ -24,7 +24,7 @@ class MediaGallery {
         wrapper.classList.add('photograph-gallery-wrapper');
 
         this._medias.forEach(media => {
-            const mediaCard = new MediaCard(media, this.StatsPublisher);
+            const mediaCard = new MediaCard(media, this.StatsPublisher, this.LightboxPublisher);
             wrapper.appendChild(mediaCard.render());
         });
         

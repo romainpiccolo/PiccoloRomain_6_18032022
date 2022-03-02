@@ -1,4 +1,4 @@
-.lightbox-wrapper {
+#lightbox .lightbox-wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -20,25 +20,34 @@
     color: var(--color-primary);
 }
 
-#lightbox-previous, #lightbox-next {
+.fa-angle-right, .fa-angle-left {
     cursor: pointer;
     font-size: 3rem;
     color: var(--color-primary);
+}
+
+.dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: inherit;
+    height: inherit;
+}
+
+.dialog-img-content, .dialog-video-content {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.dialog-video-content {
+    object-fit: cover;
 }
 
 .dialog-content {
     height: 85%;
     width: 70%;
     object-fit: cover;
-}
-
-#content-wrapper {
-    height: 100%;
-}
-
-#content{
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
-    border-radius: 5px;
 }

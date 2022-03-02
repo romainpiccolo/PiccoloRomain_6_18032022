@@ -1,8 +1,9 @@
 class MediaCard {
-    constructor(media, StatsPublisher) {
+    constructor(media, StatsPublisher, LightboxPublisher) {
         this._media = media;
         this._likes = media.likes;
         this.StatsPublisher = StatsPublisher;
+        this.LightboxPublisher = LightboxPublisher;
 
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add('photograph-media-wrapper');
@@ -26,6 +27,13 @@ class MediaCard {
         });
     }
 
+    #handleClickOnImg() {
+        this.$wrapper.querySelector('.gallery-img')
+            .addEventListener('click', () => {
+                this.LightboxPublisher.notify('OPEN', this._media.id);
+            })
+    }
+
     render() {
         const media = `
             <a>
@@ -39,6 +47,7 @@ class MediaCard {
 
         this.$wrapper.innerHTML = media;
         this.#handleLikeButton();
+        this.#handleClickOnImg();
         return this.$wrapper;
     }
 }

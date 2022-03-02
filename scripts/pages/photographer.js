@@ -4,14 +4,15 @@ import { PhotographHeader } from '../template/PhotographHeader.js';
 import { PhotographStats } from '../template/PhotographStats.js';
 import { MediaGallery } from '../template/MediaGallery.js';
 import { ContactModal } from '../template/ContactModal.js';
-import { SuccessModal } from '../template/SuccessModal.js'
-import { FilterSelect } from '../template/FilterSelect.js'
+import { SuccessModal } from '../template/SuccessModal.js';
+import { FilterSelect } from '../template/FilterSelect.js';
+import { Lightbox } from '../template/Lightbox.js';
 
 import { MediaFactory } from '../factories/MediasFactory.js';
 
 import { FilterPublisher } from '../publishers/FilterPublisher.js';
 import { StatsPublisher } from '../publishers/StatsPublisher.js';
-
+import { LightboxPublisher } from '../publishers/LightboxPublisher.js';
 
 import { Validator } from '../utils/Validator.js'
 
@@ -24,11 +25,13 @@ class PhotographerPage {
 
         this.$contactModal = document.getElementById('contactModal');
         this.$successModal = document.getElementById('successModal');
+        this.$lightbox = document.getElementById('lightbox');
 
         this.photographAPI = new PhotographApi('/data/photographers.json');
 
         this.FilterPublisher = new FilterPublisher();
         this.StatsPublisher = new StatsPublisher();
+        this.LightboxPublisher = new LightboxPublisher();
     }
 
     #getPhotographMedias(photograph) {
@@ -72,7 +75,7 @@ class PhotographerPage {
         this.$photographFilters.appendChild(filterSelect.render());
 
         //Generate Gallery
-        const mediaGallery = new MediaGallery(this.$photographGallery, photographMedias, this.StatsPublisher);
+        const mediaGallery = new MediaGallery(this.$photographGallery, photographMedias, this.StatsPublisher, this.LightboxPublisher);
         mediaGallery.render();
         this.FilterPublisher.subscribe(mediaGallery);
 
@@ -80,6 +83,11 @@ class PhotographerPage {
         const photographStats = new PhotographStats(photograph);
         this.$photographStats.appendChild(photographStats.render());
         this.StatsPublisher.subscribe(photographStats);
+
+        //Generate Lightbox
+        const lightbox = new Lightbox(photographMedias);
+        this.$lightbox.appendChild(lightbox.render());
+        this.LightboxPublisher.subscribe(lightbox);
     }
 }
 
