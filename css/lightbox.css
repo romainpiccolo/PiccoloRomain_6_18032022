@@ -36,9 +36,13 @@
     height: 100%;
 }
 
-#content{
+#imgContent, #videoContent {
     height: 100%;
     width: 100%;
     object-fit: contain;
     border-radius: 5px;
+}
+
+#videoContent{
+    object-fit: cover;
 }

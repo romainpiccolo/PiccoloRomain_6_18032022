@@ -1,3 +1,5 @@
+import { LightboxFactory } from '../factories/LightboxFactory.js'
+
 class Lightbox {
     constructor(medias) {
         this._medias = medias;
@@ -18,9 +20,39 @@ class Lightbox {
 		document.body.classList.remove('stop-scrolling');
     }
 
+    #appendNewContent(media) {
+        const wrapper = document.querySelector('#content-wrapper');
+
+        if (wrapper) {
+            wrapper.remove();
+        }
+
+        document.querySelector('.dialog-content').appendChild(media.render());
+    }
+
     #setCurrentMedia(mediaId) {
         this._currentMediaIndex = this._medias.findIndex(media => media.id === mediaId);
         this._currentMedia = this._medias[this._currentMediaIndex];
+    }
+
+    #loadCurrentMedia() {
+        const media = new LightboxFactory(this._currentMedia, this._currentMedia.mediaType)
+        this.#appendNewContent(media);
+    }
+
+    #changeMedia(action) {
+        const currentIndex = this._medias.findIndex(media => media.id === this._currentMedia.id);
+
+        switch (action) {
+            case 'NEXT':
+                this._currentMedia = currentIndex < this._medias.length - 1 ? this._medias[currentIndex + 1] : this._medias[0];
+                this.#loadCurrentMedia();
+                break;
+            case 'PREVIOUS':
+                this._currentMedia = currentIndex > 0 ? this._medias[currentIndex - 1] : this._medias[this._medias.length - 1];
+                this.#loadCurrentMedia();
+                break;
+        }
     }
 
     #handleCloseButton() {
@@ -30,25 +62,48 @@ class Lightbox {
             })
     }
 
-    #createImgContent(currentMedia) {
-        const wrapper = document.querySelector('#content-wrapper');
+    #handleNextButton() {
+        this.$wrapper.querySelector('#lightbox-next')
+            .addEventListener('click', () => {
+                this.#changeMedia('NEXT');
+            })
+    }
 
-        if (wrapper) {
-            wrapper.remove();
-        }
+    #handlePreviousButton() {
+        this.$wrapper.querySelector('#lightbox-previous')
+            .addEventListener('click', () => {
+                this.#changeMedia('PREVIOUS');
+            })
+    }
 
-        const content = Object.assign(document.createElement('div'), {id: 'content-wrapper'})
-        content.append(Object.assign(document.createElement('img'), { src: currentMedia.thumbnail, alt: 'alt', id: 'content'}))
+    #handleKeyPress() {
+        window.addEventListener('keydown', (event) => {
+			if (event.defaultPrevented) {
+				return;
+			}
 
-        return content;
+			switch (event.code) {
+				case 'ArrowRight':
+                    this.#changeMedia('NEXT');
+					break;
+				case 'ArrowLeft':
+					this.#changeMedia('PREVIOUS');
+					break;
+				case 'Escape':
+					this.#hideLightbox();
+					break;
+
+				default:
+					break;
+			}
+		});
     }
 
     update(action, mediaId){
         switch (action) {
             case 'OPEN':
                 this.#setCurrentMedia(mediaId);
-                const imgContent = this.#createImgContent(this._currentMedia);
-                document.querySelector('.dialog-content').appendChild(imgContent);
+                this.#loadCurrentMedia();
                 this.#showLightbox();
                 break;
         
@@ -67,6 +122,9 @@ class Lightbox {
 
     this.$wrapper.innerHTML = lightbox;
     this.#handleCloseButton();
+    this.#handleNextButton();
+    this.#handlePreviousButton();
+    this.#handleKeyPress();
     return this.$wrapper;
     }
 }

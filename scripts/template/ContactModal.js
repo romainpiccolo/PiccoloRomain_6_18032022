@@ -74,6 +74,10 @@ class ContactModal {
         }
     }
 
+    #handleKeyPress() {
+        window.addEventListener('keydown', (event) => event.code === 'Escape' ? this.hide() : null)
+    }
+
     #handleSendForm() {
         this.$wrapper
             .querySelector('#sendForm')
@@ -139,6 +143,7 @@ class ContactModal {
         this.$wrapper.innerHTML = contactModal;
         this.#handleCloseButton();
         this.#handleSendForm();
+        this.#handleKeyPress();
         return this.$wrapper;
     }
 }
