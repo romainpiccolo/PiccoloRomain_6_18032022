@@ -16,7 +16,7 @@
 		<title>Fisheye - photographe</title>
 	</head>
 	<body>
-		<header>
+		<header role="banner">
 			<a href="/"
 				><img
 					src="assets/images/logo.png"
@@ -25,92 +25,16 @@
 			/></a>
 		</header>
 		<main id="main">
-			<!-- <div class="photograph-header">
-				<div class="photograph-infos"></div>
-				<div class="photograph-contact">
-					<button class="contact_button">Contactez-moi</button>
-				</div>
-				<div class="photograph-photo"></div>
-			</div> -->
-
-			<!-- <div class="photograph-main">
-				<label for="filters">Trier par</label>
-
-				<div class="select-wrapper">
-					<button
-						id="selectButton"
-						value="popularity"
-						class="select-button"
-					>
-						Popularité
-					</button>
-					<ul class="filters-list">
-						<li class="filter-item" value="popularity">
-							Popularité
-						</li>
-						<li class="white-line"></li>
-						<li class="filter-item" value="date">Date</li>
-						<li class="white-line"></li>
-						<li class="filter-item" value="title">Titre</li>
-					</ul>
-				</div>
-			</div> -->
-
             <div class="photograph-header"></div>
+			<div class="photograph-stats"></div>
             <div class="photograph-filters"></div>
 			<div class="photograph-gallery"></div>
-			<div class="photograph-stats"></div>
 		</main>
-		<!-- <div id="lightbox">
-			<a><i id="lightbox-previous" class="fas fa-angle-left"></i></a>
-			<div class="dialog-content"></div>
-			<a><i id="lightbox-next" class="fas fa-angle-right"></i></a>
-			<i id="lightbox-close" role="button" class="fas fa-times"></i>
-		</div> -->
 
         <div id="lightbox"></div>
         <div id="successModal"></div>
         <div id="contactModal"></div>
 
-        <!-- <div class="success-submit-container">
-            <div class="success-submit">
-                <p>Merci ! Votre message a été envoyé.</p>
-            </div>
-        </div> -->
-       
-		<!-- <div id="contact_modal">
-			<div class="modal">
-				<header>
-					<h2>Contactez-moi</h2>
-                    <i class="fas fa-times close-modal"></i>
-				</header>
-				<form
-                    id="contactForm"
-                    method="post"
-                >
-					<div class="formData">
-						<label for="firstname">Prénom</label>
-						<input type="text" class="text-control" id="firstname" />
-					</div>
-
-                    <div class="formData">
-						<label for="lastname">Nom</label>
-						<input type="text" class="text-control" id="lastname" />
-					</div>
-
-                    <div class="formData">
-						<label for="email">Email</label>
-						<input type="email" class="text-control" id="email" />
-					</div>
-                    <div class="formData">
-						<label for="message">Votre message</label>
-						<textarea class="text-control" id="message"></textarea>
-					</div>
-					<button id="sendForm" class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div> -->
-		<!-- <script type="module" src="./scripts/pages/old_photographer.js"></script> -->
 		<script type="module" src="./scripts/pages/photographer.js"></script>
 	</body>
 </html>

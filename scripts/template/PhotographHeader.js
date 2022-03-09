@@ -19,16 +19,18 @@ class PhotographHeader {
         const photographHeader = `
              <div class="photograph-header-infos">
                 <div>
-                    <h1>${this._photograph.name}</h1>
+                    <h1 tabindex="0">${this._photograph.name}</h1>
+                    <div tabindex="0">
                     <span>${this._photograph.city}, ${this._photograph.country}</span>
                     <span>${this._photograph.tagline}</span>
+                    </div>
                 </div>
              </div>
              <div class="photograph-header-contact">
                 <button class="contact_button">Contactez-moi</button>
              </div>
              <div class="photograph-header-photo">
-                <img src="${this._photograph.portrait}" alt="${this._photograph.name}" class="avatar-photo">
+                <img tabindex="0" src="${this._photograph.portrait}" alt="${this._photograph.name}" class="avatar-photo">
              </div>
         `
 

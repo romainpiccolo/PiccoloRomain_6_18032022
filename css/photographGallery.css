@@ -22,9 +22,13 @@
     font-size: 1.2rem;
 }
 
-.gallery-img-infos span:last-child::after {
+/* .gallery-img-infos span:last-child::after {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     content: "\f004";
+    margin-left: 5px;
+} */
+
+#likeButton {
     margin-left: 5px;
 }

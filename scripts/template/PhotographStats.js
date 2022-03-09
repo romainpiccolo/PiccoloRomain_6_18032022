@@ -19,7 +19,7 @@ class PhotographStats {
 
     render() {
         const photographStats = `
-            <p><span id="statsTotalLikes">${this._totalLikes}</span><span>${this._photograph.price}€ / jour</span></p>
+            <p tabindex="0"><span id="statsTotalLikes">${this._totalLikes}</span><span>${this._photograph.price}€ / jour</span></p>
         `
 
         this.$wrapper.innerHTML = photographStats;

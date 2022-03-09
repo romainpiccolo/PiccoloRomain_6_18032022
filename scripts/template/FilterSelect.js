@@ -66,24 +66,26 @@ class FilterSelect {
     render() {
         const select = `
         <div class="photograph-main">
-            <label for="filters">Trier par</label>
+            <label for="filters" tabindex="0">Trier par</label>
 
             <div class="select-wrapper">
                 <button
                     id="selectButton"
                     value="popularity"
                     class="select-button"
+                    role="button"
+                    aria-haspopup="listbox"
                 >
                     Popularité
                 </button>
-                <ul class="filters-list">
-                    <li class="filter-item" value="popularity">
+                <ul class="filters-list" role="listbox">
+                    <li tabindex="0" class="filter-item" value="popularity">
                         Popularité
                     </li>
                     <li class="white-line"></li>
-                    <li class="filter-item" value="date">Date</li>
+                    <li tabindex="0" class="filter-item" value="date">Date</li>
                     <li class="white-line"></li>
-                    <li class="filter-item" value="title">Titre</li>
+                    <li tabindex="0" class="filter-item" value="title">Titre</li>
                 </ul>
             </div>
         </div>

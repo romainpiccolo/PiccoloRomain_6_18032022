@@ -23,7 +23,7 @@ class MediaCard {
                 this._media.addLike()
             }
             
-            e.target.textContent = this._likes;
+            e.target.previousSibling.textContent = this._likes;
         });
     }
 
@@ -37,10 +37,11 @@ class MediaCard {
     render() {
         const media = `
             <a>
-                <${this._media.mediaType} src="${this._media.thumbnail}" id="${this._media.id}" class="gallery-img"></${this._media.mediaType}>
+                <${this._media.mediaType} tabindex="0" src="${this._media.thumbnail}" id="${this._media.id}" class="gallery-img" alt="${this._media.title}"></${this._media.mediaType}>
                 <p class="gallery-img-infos">
-                <span>${this._media.title}</span>
-                <span id="likeButton" data-id="${this._media.id}">${this._likes}</span>
+                    <span tabindex="0">${this._media.title}</span>
+                    <span>${this._likes}<i class="fas fa-heart" id="likeButton" tabindex="0"></i></span>
+                    
                 </p>
             </a>
         `

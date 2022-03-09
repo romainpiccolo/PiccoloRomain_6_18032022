@@ -105,7 +105,7 @@ class ContactModal {
 
     render() {
         const contactModal = `
-        <div class="modal">
+        <div class="modal" role="dialog">
             <header>
                 <div>
                     <h2>Contactez-moi</h2>
@@ -135,7 +135,7 @@ class ContactModal {
                     <label for="message">Votre message</label>
                     <textarea class="text-control" id="message"></textarea>
                 </div>
-                <button id="sendForm" class="contact_button">Envoyer</button>
+                <button id="sendForm" class="contact_button" type="submit">Envoyer</button>
             </form>
         </div>
         `
