@@ -6,11 +6,9 @@ class LightboxFactory {
         switch (type) {
             case 'img':
                 return new LightboxImg(data);
-                break;
 
             case 'video':
                 return new LightboxVideo(data);
-                break;
         
             default:
                 throw 'Unknown type format'
