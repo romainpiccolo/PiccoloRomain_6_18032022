@@ -8,6 +8,9 @@ class Lightbox {
 
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add('lightbox-wrapper');
+        this.$wrapper.setAttribute('role', 'dialog');
+        this.$wrapper.setAttribute('tabindex', '0');
+        this.$wrapper.setAttribute('aria-label', 'image closeup view');
     }
 
     #showLightbox() {
@@ -105,6 +108,8 @@ class Lightbox {
                 this.#setCurrentMedia(mediaId);
                 this.#loadCurrentMedia();
                 this.#showLightbox();
+                document.querySelector('body').setAttribute('aria-hidden', true);
+                this.$wrapper.focus();
                 break;
         
             default:
@@ -114,10 +119,10 @@ class Lightbox {
 
     render() {
         const lightbox = `
-        <a><i id="lightbox-previous" class="fas fa-angle-left"></i></a>
+        <a tabindex="0"><i id="lightbox-previous" class="fas fa-angle-left"></i></a>
 		    <div class="dialog-content"></div>
-		<a><i id="lightbox-next" class="fas fa-angle-right"></i></a>
-		<i id="lightbox-close" role="button" class="fas fa-times"></i>
+		<a tabindex="0"><i id="lightbox-next" class="fas fa-angle-right"></i></a>
+		<i role="button" tabindex="0" id="lightbox-close" role="button" class="fas fa-times"></i>
     `
 
     this.$wrapper.innerHTML = lightbox;
