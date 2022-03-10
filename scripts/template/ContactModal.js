@@ -33,10 +33,14 @@ class ContactModal {
 
     show() {
         this.$wrapper.style.display = 'block';
+        document.body.setAttribute('aria-hidden', true);
+        this.$wrapper.querySelector('.modal').focus();
     }
 
     hide() {
         this.$wrapper.style.display = 'none';
+        document.body.removeAttribute('aria-hidden');
+        document.querySelector('.contact_button').focus();
     }
 
     #resetError(fieldId) {
@@ -105,38 +109,38 @@ class ContactModal {
 
     render() {
         const contactModal = `
-        <div class="modal" role="dialog">
+        <div tabindex="0" class="modal" role="dialog">
             <header>
                 <div>
-                    <h2>Contactez-moi</h2>
+                    <h2 tabindex="0">Contactez-moi</h2>
                     <h2>${this._photograph.name}</h2>
                 </div>
-                <i class="fas fa-times close-modal"></i>
             </header>
             <form
                 id="contactForm"
                 method="post"
             >
                 <div class="formData">
-                    <label for="firstname">Prénom</label>
+                    <label tabindex="0" for="firstname">Prénom</label>
                     <input type="text" class="text-control" id="firstname" />
                 </div>
 
                 <div class="formData">
-                    <label for="lastname">Nom</label>
+                    <label tabindex="0" for="lastname">Nom</label>
                     <input type="text" class="text-control" id="lastname" />
                 </div>
 
                 <div class="formData">
-                    <label for="email">Email</label>
+                    <label tabindex="0" for="email">Email</label>
                     <input type="email" class="text-control" id="email" />
                 </div>
                 <div class="formData">
-                    <label for="message">Votre message</label>
+                    <label tabindex="0" for="message">Votre message</label>
                     <textarea class="text-control" id="message"></textarea>
                 </div>
                 <button id="sendForm" class="contact_button" type="submit">Envoyer</button>
             </form>
+            <i tabindex="0" class="fas fa-times close-modal"></i>
         </div>
         `
 

@@ -16,11 +16,17 @@ class Lightbox {
     #showLightbox() {
         this.$wrapper.style.display = 'flex';
         document.body.classList.add('stop-scrolling');
+
+        document.body.setAttribute('aria-hidden', true);
+        this.$wrapper.focus();
     }
 
     #hideLightbox() {
         this.$wrapper.style.display = 'none';
 		document.body.classList.remove('stop-scrolling');
+
+        document.body.removeAttribute('aria-hidden');
+        document.getElementById(`${this._currentMedia.id}`).focus();
     }
 
     #appendNewContent(media) {
@@ -108,8 +114,6 @@ class Lightbox {
                 this.#setCurrentMedia(mediaId);
                 this.#loadCurrentMedia();
                 this.#showLightbox();
-                document.querySelector('body').setAttribute('aria-hidden', true);
-                this.$wrapper.focus();
                 break;
         
             default:
