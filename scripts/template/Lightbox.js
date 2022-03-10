@@ -119,9 +119,9 @@ class Lightbox {
 
     render() {
         const lightbox = `
-        <a tabindex="0"><i id="lightbox-previous" class="fas fa-angle-left"></i></a>
-		    <div class="dialog-content"></div>
-		<a tabindex="0"><i id="lightbox-next" class="fas fa-angle-right"></i></a>
+		<div class="dialog-content" tabindex="0"></div>
+        <a tabindex="0" class="prev"><i id="lightbox-previous" class="fas fa-angle-left"></i></a>
+		<a tabindex="0" class="next"><i id="lightbox-next" class="fas fa-angle-right"></i></a>
 		<i role="button" tabindex="0" id="lightbox-close" role="button" class="fas fa-times"></i>
     `
 

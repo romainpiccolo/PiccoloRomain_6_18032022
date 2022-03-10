@@ -26,10 +26,19 @@
     color: var(--color-primary);
 }
 
+.prev {
+    order: 1
+}
+
+.next {
+    order: 3
+}
+
 .dialog-content {
     height: 85%;
     width: 70%;
     object-fit: cover;
+    order: 2;
 }
 
 #content-wrapper {
