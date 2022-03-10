@@ -9,21 +9,24 @@ class MediaCard {
         this.$wrapper.classList.add('photograph-media-wrapper');
     }
 
+    #handleLike(event) {
+        if (this._media.isLiked) {
+            this.StatsPublisher.notify('DEC');
+            this._likes -= 1;
+            this._media.subLike()
+        } else {
+            this.StatsPublisher.notify('INC');
+            this._likes += 1;
+            this._media.addLike()
+        }
+
+        event.target.previousSibling.textContent = this._likes;
+    }
+
     #handleLikeButton() {
         this.$wrapper.querySelector('#likeButton')
 		.addEventListener('click', (e) => {
-
-            if (this._media.isLiked) {
-                this.StatsPublisher.notify('DEC');
-                this._likes -= 1;
-                this._media.subLike()
-            } else {
-                this.StatsPublisher.notify('INC');
-                this._likes += 1;
-                this._media.addLike()
-            }
-            
-            e.target.previousSibling.textContent = this._likes;
+            this.#handleLike(e);
         });
     }
 
@@ -32,6 +35,26 @@ class MediaCard {
             .addEventListener('click', () => {
                 this.LightboxPublisher.notify('OPEN', this._media.id);
             })
+    }
+
+    #handleEnterOnImg() {
+        this.$wrapper.querySelector('.gallery-img')
+            .addEventListener('keydown', (event) => {
+                if (event.defaultPrevented || event.code !== 'Enter')
+                    return;
+
+                this.LightboxPublisher.notify('OPEN', this._media.id);
+            });
+    }
+
+    #handleEnterOnLike() {
+        this.$wrapper.querySelector('#likeButton')
+            .addEventListener('keydown', (event) => {
+                if (event.defaultPrevented || event.code !== 'Enter')
+                    return;
+
+                this.#handleLike(event);
+            });
     }
 
     render() {
@@ -49,6 +72,8 @@ class MediaCard {
         this.$wrapper.innerHTML = media;
         this.#handleLikeButton();
         this.#handleClickOnImg();
+        this.#handleEnterOnImg();
+        this.#handleEnterOnLike();
         return this.$wrapper;
     }
 }
