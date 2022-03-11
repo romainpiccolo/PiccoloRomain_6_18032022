@@ -8,24 +8,21 @@ class Lightbox {
 
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add('lightbox-wrapper');
-        this.$wrapper.setAttribute('role', 'dialog');
-        this.$wrapper.setAttribute('tabindex', '0');
-        this.$wrapper.setAttribute('aria-label', 'image closeup view');
     }
 
     #showLightbox() {
         this.$wrapper.style.display = 'flex';
         document.body.classList.add('stop-scrolling');
 
-        document.body.setAttribute('aria-hidden', true);
-        this.$wrapper.focus();
+        document.querySelector('main').setAttribute('aria-hidden', true);
+        this.$wrapper.querySelector('.dialog-content').focus();
     }
 
     #hideLightbox() {
         this.$wrapper.style.display = 'none';
 		document.body.classList.remove('stop-scrolling');
 
-        document.body.removeAttribute('aria-hidden');
+        document.querySelector('main').removeAttribute('aria-hidden');
         document.getElementById(`${this._currentMedia.id}`).focus();
     }
 
@@ -123,10 +120,10 @@ class Lightbox {
 
     render() {
         const lightbox = `
-		<div class="dialog-content" tabindex="0"></div>
-        <a tabindex="0" class="prev"><i id="lightbox-previous" class="fas fa-angle-left"></i></a>
-		<a tabindex="0" class="next"><i id="lightbox-next" class="fas fa-angle-right"></i></a>
-		<i role="button" tabindex="0" id="lightbox-close" role="button" class="fas fa-times"></i>
+		<div class="dialog-content" tabindex="0" role="dialog" aria-label="image closeup view"></div>
+        <a tabindex="0" class="prev" aria-label="Previous image"><i id="lightbox-previous" class="fas fa-angle-left"></i></a>
+		<a tabindex="0" class="next" aria-label="Next image"><i id="lightbox-next" class="fas fa-angle-right"></i></a>
+		<i role="button" tabindex="0" id="lightbox-close" class="fas fa-times" aria-label="Close dialog"></i>
     `
 
     this.$wrapper.innerHTML = lightbox;

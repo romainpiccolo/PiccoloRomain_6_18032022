@@ -33,24 +33,26 @@ class ContactModal {
 
     show() {
         this.$wrapper.style.display = 'block';
-        document.body.setAttribute('aria-hidden', true);
+        document.querySelector('main').setAttribute('aria-hidden', true);
         this.$wrapper.querySelector('.modal').focus();
     }
 
     hide() {
         this.$wrapper.style.display = 'none';
-        document.body.removeAttribute('aria-hidden');
+        document.querySelector('main').removeAttribute('aria-hidden');
         document.querySelector('.contact_button').focus();
     }
 
     #resetError(fieldId) {
         document.getElementById(fieldId).parentElement.setAttribute('data-error-visible', false);
         document.getElementById(fieldId).parentElement.removeAttribute('data-error');
+        document.getElementById(fieldId).removeAttribute('aria-label');
     }
 
     #setError(fieldId, error) {
         document.getElementById(fieldId).parentElement.setAttribute('data-error', error);
         document.getElementById(fieldId).parentElement.setAttribute('data-error-visible', true);
+        document.getElementById(fieldId).setAttribute('aria-label', error);
     }
 
     #validateForm(event) {
@@ -109,10 +111,10 @@ class ContactModal {
 
     render() {
         const contactModal = `
-        <div tabindex="0" class="modal" role="dialog">
+        <div tabindex="0" class="modal" role="dialog" aria-labelledby="modalTitle">
             <header>
                 <div>
-                    <h2 tabindex="0">Contactez-moi</h2>
+                    <h2 tabindex="0" id="modalTitle">Contactez-moi</h2>
                     <h2>${this._photograph.name}</h2>
                 </div>
             </header>
@@ -121,7 +123,7 @@ class ContactModal {
                 method="post"
             >
                 <div class="formData">
-                    <label tabindex="0" for="firstname">Prénom</label>
+                    <label tabindex="0" for="firstname" id="firstnameLabel">Prénom</label>
                     <input type="text" class="text-control" id="firstname" />
                 </div>
 
@@ -138,9 +140,9 @@ class ContactModal {
                     <label tabindex="0" for="message">Votre message</label>
                     <textarea class="text-control" id="message"></textarea>
                 </div>
-                <button id="sendForm" class="contact_button" type="submit">Envoyer</button>
+                <button id="sendForm" class="contact_button" type="submit" aria-label="Send">Envoyer</button>
             </form>
-            <i tabindex="0" class="fas fa-times close-modal"></i>
+            <i tabindex="0" class="fas fa-times close-modal" role="button" aria-label="Close Contact form"></i>
         </div>
         `
 
