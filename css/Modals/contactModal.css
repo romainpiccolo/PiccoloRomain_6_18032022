@@ -8,10 +8,13 @@
     top: 0;
 }
 
-.close-modal {
+#closeModal {
     position: absolute;
     top: 1rem;
     right: 1rem;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
 }
 
 .modal {

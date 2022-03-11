@@ -94,7 +94,9 @@ class ContactModal {
                 if (isValid) {
                     this._successModal.show();
                     setTimeout(() => this._successModal.hide(), 3000);
-                    console.log('firstname', 'lastname', 'email', 'message');
+                    this._formFields.forEach(field => {
+                        console.log(document.getElementById(field.id).value);
+                    })
                     this.#resetForm();
                     this.hide();
                 }
@@ -103,7 +105,7 @@ class ContactModal {
 
     #handleCloseButton() {
         this.$wrapper
-            .querySelector('.close-modal')
+            .querySelector('#closeModal')
             .addEventListener('click', () => {
                  this.hide();
             })
@@ -124,25 +126,25 @@ class ContactModal {
             >
                 <div class="formData">
                     <label tabindex="0" for="firstname" id="firstnameLabel">Prénom</label>
-                    <input type="text" class="text-control" id="firstname" />
+                    <input type="text" class="text-control" id="firstname" aria-labelledby="firstnameLabel" />
                 </div>
 
                 <div class="formData">
-                    <label tabindex="0" for="lastname">Nom</label>
-                    <input type="text" class="text-control" id="lastname" />
+                    <label tabindex="0" for="lastname" id="lastnameLabel">Nom</label>
+                    <input type="text" class="text-control" id="lastname" aria-labelledby="lastnameLabel" />
                 </div>
 
                 <div class="formData">
-                    <label tabindex="0" for="email">Email</label>
-                    <input type="email" class="text-control" id="email" />
+                    <label tabindex="0" for="email" id="emailLabel">Email</label>
+                    <input type="email" class="text-control" id="email" aria-labelledby="emailLabel" />
                 </div>
                 <div class="formData">
-                    <label tabindex="0" for="message">Votre message</label>
-                    <textarea class="text-control" id="message"></textarea>
+                    <label tabindex="0" for="message" id="messageLabel">Votre message</label>
+                    <textarea class="text-control" id="message" aria-labelledby="messageLabel"></textarea>
                 </div>
                 <button id="sendForm" class="contact_button" type="submit" aria-label="Send">Envoyer</button>
             </form>
-            <i tabindex="0" class="fas fa-times close-modal" role="button" aria-label="Close Contact form"></i>
+            <a role="button" tabindex="0" id="closeModal" aria-label="Close Contact form"><i class="fas fa-times"></i></a>
         </div>
         `
 

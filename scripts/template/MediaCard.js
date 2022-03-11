@@ -59,14 +59,13 @@ class MediaCard {
 
     render() {
         const media = `
-            <a>
-                <${this._media.mediaType} tabindex="0" src="${this._media.thumbnail}" id="${this._media.id}" class="gallery-img" alt="${this._media.title}"></${this._media.mediaType}>
+            <article>
+                <${this._media.mediaType} tabindex="0" src="${this._media.thumbnail}" id="${this._media.id}" class="gallery-img" aria-label="${this._media.title}, closeup view" alt="${this._media.title}"></${this._media.mediaType}>
                 <p class="gallery-img-infos">
                     <span tabindex="0">${this._media.title}</span>
-                    <span>${this._likes}<i class="fas fa-heart" id="likeButton" tabindex="0"></i></span>
-                    
+                    <span>${this._likes}<a role="button" tabindex="0" id="likeButton" aria-label="${this._likes} likes"><i class="fas fa-heart"></i></a></span>
                 </p>
-            </a>
+            </article>
         `
 
         this.$wrapper.innerHTML = media;

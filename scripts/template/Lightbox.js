@@ -123,7 +123,7 @@ class Lightbox {
 		<div class="dialog-content" tabindex="0" role="dialog" aria-label="image closeup view"></div>
         <a tabindex="0" class="prev" aria-label="Previous image"><i id="lightbox-previous" class="fas fa-angle-left"></i></a>
 		<a tabindex="0" class="next" aria-label="Next image"><i id="lightbox-next" class="fas fa-angle-right"></i></a>
-		<i role="button" tabindex="0" id="lightbox-close" class="fas fa-times" aria-label="Close dialog"></i>
+		<a role="button" tabindex="0"  id="lightbox-close" aria-label="Close dialog"><i class="fas fa-times"></i></a>
     `
 
     this.$wrapper.innerHTML = lightbox;
