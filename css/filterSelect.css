@@ -44,6 +44,7 @@
     width: 150px;
     color: white;
     border-radius: 5px;
+    z-index: 2;
 }
 
 .filters-list li {
