@@ -20,11 +20,11 @@ class MediaCard {
             this._media.addLike()
         }
 
-        event.target.previousSibling.textContent = this._likes;
+        event.currentTarget.previousSibling.textContent = this._likes;
     }
 
     #handleLikeButton() {
-        this.$wrapper.querySelector('#likeButton')
+        this.$wrapper.querySelector('.likeButton')
 		.addEventListener('click', (e) => {
             this.#handleLike(e);
         });
@@ -48,7 +48,7 @@ class MediaCard {
     }
 
     #handleEnterOnLike() {
-        this.$wrapper.querySelector('#likeButton')
+        this.$wrapper.querySelector('.likeButton')
             .addEventListener('keydown', (event) => {
                 if (event.defaultPrevented || event.code !== 'Enter')
                     return;
@@ -63,7 +63,7 @@ class MediaCard {
                 <${this._media.mediaType} tabindex="0" src="${this._media.thumbnail}" id="${this._media.id}" class="gallery-img" aria-label="${this._media.title}, closeup view" alt="${this._media.title}"></${this._media.mediaType}>
                 <p class="gallery-img-infos">
                     <span tabindex="0">${this._media.title}</span>
-                    <span>${this._likes}<a role="button" tabindex="0" id="likeButton" aria-label="${this._likes} likes"><i class="fas fa-heart"></i></a></span>
+                    <span>${this._likes}<a role="button" tabindex="0" class="likeButton" aria-label="${this._likes} likes"><i class="fas fa-heart"></i></a></span>
                 </p>
             </article>
         `
