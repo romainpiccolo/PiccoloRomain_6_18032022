@@ -16,27 +16,20 @@ class FilterSelect {
     }
 
     #sortMediaByType(medias, type) {
-        let sortedMedias = null;
-    
         switch (type) {
             case 'popularity':
-                sortedMedias = medias.sort((a, b) => b.likes - a.likes);
-                break;
+                return medias.sort((a, b) => b.likes - a.likes);
     
             case 'date':
-                sortedMedias = medias.sort((a, b) => a.date < b.date);
-                break;
+                return medias.sort((a, b) => a.date < b.date ? 1 : -1);
     
             case 'title':
-                sortedMedias = medias.sort((a, b) => a.title > b.title);
-                break;
-    
+                return medias.sort((a, b) => {
+                    return a.title > b.title ? 1 : (a.title === b.title ? 0 : -1);
+                });
             default:
-                sortedMedias = medias.sort((a, b) => a.likes - b.likes);
-                break;
+                return medias.sort((a, b) => a.likes - b.likes);
         }
-    
-        return sortedMedias;
     }
 
     #changeButtonValue(e) {
