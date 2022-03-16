@@ -47,23 +47,25 @@
     z-index: 2;
 }
 
-.filters-list li {
+.filters-list a {
     padding: 15px;
+    display: block;
     font-weight: 700;
     font-size: 1rem;
 }
 
-.filters-list li:hover {
+.filters-list a:hover {
     background-color: var(--color-secondary);
     border-radius: 5px;
 }
 
-.filters-list li:first-child {
+.filters-list a:first-child {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-.filters-list li:first-child::after {
+.filters-list li:first-child a::after {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
     content: "\f107"

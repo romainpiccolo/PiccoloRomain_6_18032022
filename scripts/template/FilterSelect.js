@@ -3,16 +3,24 @@ class FilterSelect {
         this._medias = medias;
         this.FilterPublisher = FilterPublisher;
 
+        this._menuItems = [];
+        this._currentMenuItem = null;
+
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add('filter-select-wrapper');
     }
 
     #showFilterList() {
         document.querySelector('.filters-list').style.display = 'block';
+        document.getElementById('selectButton').setAttribute('aria-expanded', true);
+        this._menuItems[0].focus();
+        this._currentMenuItem = this._menuItems[0];
     }
 
     #hideFilterList() {
+        document.getElementById('selectButton').focus();
         document.querySelector('.filters-list').style.display = 'none';
+        document.getElementById('selectButton').removeAttribute('aria-expanded');
     }
 
     #sortMediaByType(medias, type) {
@@ -44,7 +52,6 @@ class FilterSelect {
     }
 
     #handleSelectItem() {
-
         this.$wrapper.querySelectorAll('.filter-item').forEach(item => {
             item.addEventListener('click', (e) => {
                 this.#changeButtonValue(e);
@@ -53,6 +60,59 @@ class FilterSelect {
                 this.FilterPublisher.notify(sortedMedias);
                 this.#hideFilterList();
             })
+        })
+    }
+
+    #focusNextMenuItem() {
+        const index = this._menuItems.findIndex(menuItem => menuItem === this._currentMenuItem);
+
+        this._currentMenuItem = (index === this._menuItems.length - 1) ? this._menuItems[0] : this._menuItems[index + 1];
+        this._currentMenuItem.parentElement.focus();
+
+    }
+
+    #focusPreviousMenuItem() {
+        const index = this._menuItems.findIndex(menuItem => menuItem === this._currentMenuItem);
+
+        this._currentMenuItem = (index === 0) ? this._menuItems[this._menuItems.length - 1] : this._menuItems[index - 1];
+        this._currentMenuItem.parentElement.focus();
+    }
+
+    #handleKeyDown(event) {
+        console.log(event.key);
+        switch (event.key) {
+            case 'Escape':
+            case 'Esc':
+            case 'Tab':
+                this.#hideFilterList();
+                break;
+
+            case 'Tab':
+                this.#hideFilterList();
+                break;
+
+            case 'ArrowDown':
+                this.#focusNextMenuItem();
+                break;
+
+            case 'ArrowUp':
+                this.#focusPreviousMenuItem();
+                break;
+
+            case 'Enter':
+                console.log(this._currentMenuItem);
+                break;
+        
+            default:
+                break;
+        }
+    }
+
+    #handleMenuKeyDown() {
+        this.$wrapper.querySelector('#selectButton').addEventListener('keydown', (event) => this.#handleKeyDown(event));
+        this.$wrapper.querySelectorAll('[role="menuitem"]').forEach(menuItem => {
+            this._menuItems.push(menuItem);
+            menuItem.addEventListener('keydown', (event) => this.#handleKeyDown(event))
         })
     }
 
@@ -66,19 +126,24 @@ class FilterSelect {
                     id="selectButton"
                     value="popularity"
                     class="select-button"
-                    role="button"
-                    aria-haspopup="listbox"
+                    aria-haspopup="true"
+                    aria-controls="menu2"
                 >
                     Popularité
                 </button>
-                <ul class="filters-list" role="listbox">
-                    <li tabindex="0" class="filter-item" value="popularity">
-                        Popularité
+
+                <ul class="filters-list" role="menu" aria-labelledby="selectButton">
+                    <li role="none">
+                        <a role="menuitem" class="filter-item" value="popularity">Popularité</a>
                     </li>
                     <li class="white-line"></li>
-                    <li tabindex="0" class="filter-item" value="date">Date</li>
+                    <li role="none">
+                        <a role="menuitem" class="filter-item" value="date">Date</a>
+                    </li>
                     <li class="white-line"></li>
-                    <li tabindex="0" class="filter-item" value="title">Titre</li>
+                    <li role="none">
+                        <a role="menuitem" class="filter-item" value="title">Titre</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -87,6 +152,7 @@ class FilterSelect {
         this.$wrapper.innerHTML = select;
         this.#handleSelectButton();
         this.#handleSelectItem();
+        this.#handleMenuKeyDown();
         return this.$wrapper;
     }
 }
