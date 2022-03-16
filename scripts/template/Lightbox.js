@@ -83,7 +83,7 @@ class Lightbox {
     }
 
     #handleKeyPress() {
-        window.addEventListener('keydown', (event) => {
+        this.$wrapper.addEventListener('keydown', (event) => {
 			if (event.defaultPrevented || this.$wrapper.style.display != 'flex') {
 				return;
 			}

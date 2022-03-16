@@ -81,7 +81,7 @@ class ContactModal {
     }
 
     #handleKeyPress() {
-        window.addEventListener('keydown', (event) => event.code === 'Escape' ? this.hide() : null)
+        this.$wrapper.addEventListener('keydown', (event) => event.code === 'Escape' ? this.hide() : null)
     }
 
     #handleSendForm() {
