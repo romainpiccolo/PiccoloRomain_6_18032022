@@ -37,7 +37,7 @@ class FilterSelect {
     #hideFilterList() {
         document.querySelector('.filters-list').style.display = 'none';
         document.getElementById('selectButton').removeAttribute('aria-expanded');
-        this.$wrapper.querySelector('label').focus();
+        document.getElementById('selectButton').focus();
         this._currentMenuItem = this._menuItems[0];
     }
 
@@ -66,6 +66,8 @@ class FilterSelect {
     }
 
     #handleKeyDown(event) {
+        event.preventDefault();
+
         switch (event.key) {
             case 'Escape':
             case 'Esc':

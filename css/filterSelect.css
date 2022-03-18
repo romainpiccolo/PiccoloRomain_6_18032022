@@ -59,6 +59,11 @@
     border-radius: 5px;
 }
 
+.filters-list a:focus {
+    background-color: var(--color-secondary);
+    border-radius: 5px;
+}
+
 .filters-list a:first-child {
     display: flex;
     justify-content: space-between;
