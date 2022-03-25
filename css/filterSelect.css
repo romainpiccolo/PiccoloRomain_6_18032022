@@ -73,7 +73,7 @@
 .filters-list li:first-child a::after {
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    content: "\f107"
+    content: "\f106";
 }
 
 .white-line {
